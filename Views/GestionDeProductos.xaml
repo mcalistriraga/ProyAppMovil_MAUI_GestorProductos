@@ -1,0 +1,21 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppGestorMovil.Views.GestionDeProductos"
+             Title="Gestión de Productos">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Label Text="Gestión de Productos" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+
+        <ListView x:Name="lvProductos" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Nombre}" Detail="{Binding CategoriaNombre}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Agregar Producto" Clicked="btnAgregarProducto_Clicked" />
+
+    </VerticalStackLayout>
+</ContentPage>

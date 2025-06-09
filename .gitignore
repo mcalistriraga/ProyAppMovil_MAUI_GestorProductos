@@ -1,0 +1,27 @@
+## Build Folders (bin/obj)
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## VS Code directory
+.vscode/
+
+## Visual Studio working folder
+.vs/
+
+## Mac build artifacts
+*.DS_Store
+
+## NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+## Others
+*.log
+TestResults/
