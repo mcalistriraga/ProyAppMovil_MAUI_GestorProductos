@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppGestorMovil.Views.FrameDashboard"
@@ -6,51 +5,87 @@
              Title="Dashboard">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+        <VerticalStackLayout Padding="24,40,24,24" Spacing="36">
 
-            <!-- Identificación de la Empresa -->
-            <StackLayout HorizontalOptions="Center">
-                <Image Source="img_LogoEmpresa.png"
-                       WidthRequest="60" HeightRequest="90"/>
-                <Label Text="StockMaster"
-                       FontSize="24"
-                       TextColor="#FB6969"
-                       HorizontalOptions="Center"/>
-                <Label Text="Gestión Eficiente de Inventarios"
-                       FontSize="14"
-                       TextColor="#E6BEEF"
-                       HorizontalOptions="Center"/>
-            </StackLayout>
+            <!-- Encabezado: logo + nombre -->
+            <HorizontalStackLayout Spacing="18" HorizontalOptions="Start">
+                <Image Source="logo_empresa.png"
+                       WidthRequest="60"
+                       HeightRequest="90"
+                       VerticalOptions="Start"/>
+                <VerticalStackLayout Spacing="4" VerticalOptions="Start">
+                    <Label Text="StockMaster"
+                           FontSize="44"
+                           FontAttributes="Bold"
+                           TextColor="#FBA4A4"
+                           HorizontalOptions="Start"/>
+                    <Label Text="Gestión Eficiente de Inventarios"
+                           FontSize="16"
+                           TextColor="#E6BFE7"
+                           HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
 
-            <!-- Botón Buscar -->
-            <Button Text="Buscar"
-                    BackgroundColor="#CA5EE5"
-                    TextColor="White"
-                    CornerRadius="12"
-                    HeightRequest="45"
-                    WidthRequest="158"
-                    HorizontalOptions="Center"
-                    Clicked="OnBuscarClicked" />
+            <!-- Botones alineados verticalmente a la izquierda -->
+            <HorizontalStackLayout HorizontalOptions="Start">
+                <VerticalStackLayout WidthRequest="240" Spacing="20">
 
-            <!-- Botón Categorías -->
-            <Button Text="Categorías"
-                    BackgroundColor="#33C2FF"
-                    TextColor="White"
-                    CornerRadius="12"
-                    HeightRequest="45"
-                    WidthRequest="158"
-                    HorizontalOptions="Center"
-                    Clicked="OnCategoriasClicked" />
+                    <!-- Botón: Productos -->
+                    <Frame CornerRadius="16"
+                           BackgroundColor="#E1E8FB"
+                           HasShadow="True"
+                           Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Productos"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333"/>
+                            <Button Text="Ir"
+                                    Command="{Binding DashboardOptions[0].Command}"
+                                    BackgroundColor="#FF9800"
+                                    TextColor="White"
+                                    CornerRadius="8"/>
+                        </VerticalStackLayout>
+                    </Frame>
 
-            <!-- Botón Productos -->
-            <Button Text="Productos"
-                    BackgroundColor="#FFA733"
-                    TextColor="White"
-                    CornerRadius="12"
-                    HeightRequest="45"
-                    WidthRequest="158"
-                    HorizontalOptions="Center"
-                    Clicked="OnProductosClicked" />
+                    <!-- Botón: Categorías -->
+                    <Frame CornerRadius="16"
+                           BackgroundColor="#E1E8FB"
+                           HasShadow="True"
+                           Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Categorías"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333"/>
+                            <Button Text="Ir"
+                                    Command="{Binding DashboardOptions[1].Command}"
+                                    BackgroundColor="#2196F3"
+                                    TextColor="White"
+                                    CornerRadius="8"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Botón: Buscar -->
+                    <Frame CornerRadius="16"
+                           BackgroundColor="#E1E8FB"
+                           HasShadow="True"
+                           Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Buscar"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333"/>
+                            <Button Text="Ir"
+                                    Command="{Binding DashboardOptions[2].Command}"
+                                    BackgroundColor="#4CAF50"
+                                    TextColor="White"
+                                    CornerRadius="8"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
