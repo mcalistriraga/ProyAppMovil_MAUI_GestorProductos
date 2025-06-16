@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppGestorMovil.Views.EncabezadoEmpresa"
+             x:Name="self">
+
+    <VerticalStackLayout Spacing="8">
+
+        <!-- Encabezado: logo + nombre -->
+        <HorizontalStackLayout Spacing="18" HorizontalOptions="Start">
+            <Image Source="img_logoempresa.png"
+                   WidthRequest="60"
+                   HeightRequest="90"
+                   VerticalOptions="Start"/>
+            <VerticalStackLayout Spacing="4" VerticalOptions="Start">
+                <Label Text="StockMaster"
+                       FontSize="44"
+                       FontAttributes="Bold"
+                       TextColor="#FBA4A4"
+                       HorizontalOptions="Start"/>
+                <Label Text="Gestión Eficiente de Inventarios"
+                       FontSize="16"
+                       TextColor="#E6BFE7"
+                       HorizontalOptions="Start"/>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+        <!-- 
+        Este Label representa el título funcional de cada página.
+        Se vincula a la propiedad TituloPagina, permitiendo personalizarlo
+        desde cada vista que utiliza este encabezado reutilizable.
+
+        El Padding "40,24,0,0" proporciona:
+        - 40: margen izquierdo para alinear visualmente con el centro del logo
+        - 24: separación vertical desde el subtítulo de la empresa
+        -->
+        <Label Text="{Binding Source={x:Reference self}, Path=TituloPagina}"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="White"
+               FontFamily="Inter"
+               Padding="40,24,0,0"  
+            HorizontalOptions="Start"/>
+
+    </VerticalStackLayout>
+</ContentView>

@@ -8,7 +8,7 @@ namespace MauiAppGestorMovil.ViewModels
     public class DashboardOption
     {
         public string Title { get; set; }
-        public string Icon { get; set; }
+        // public string Icon { get; set; }
         public ICommand Command { get; set; }
         public Color ButtonColor { get; set; } // Nueva propiedad para el color del botón
     }
@@ -21,29 +21,32 @@ namespace MauiAppGestorMovil.ViewModels
         {
             DashboardOptions = new ObservableCollection<DashboardOption>
             {
+
                 new DashboardOption
                 {
-                    Title = "Buscar",
-                    Icon = "buscar.png",
-                    ButtonColor = Color.FromArgb("#4CAF50"),
-                    Command = new Command(() =>
-                        Application.Current.MainPage.DisplayAlert("Buscar", "Función Buscar en desarrollo", "OK"))
+                    Title = "Productos",
+                    // Icon = "productos.png",
+                    ButtonColor = Color.FromArgb("#FF9800"),
+                    Command = new Command(async () =>
+                        await Application.Current.MainPage.Navigation.PushAsync(new Views.GestionDeProductos()))
                 },
+
                 new DashboardOption
                 {
                     Title = "Categorías",
-                    Icon = "categorias.png",
+                    // Icon = "categorias.png",
                     ButtonColor = Color.FromArgb("#2196F3"),
                     Command = new Command(() =>
                         Application.Current.MainPage.DisplayAlert("Categorías", "Función Categorías en desarrollo", "OK"))
                 },
+
                 new DashboardOption
                 {
-                    Title = "Productos",
-                    Icon = "productos.png",
-                    ButtonColor = Color.FromArgb("#FF9800"),
-                    Command = new Command(async () =>
-                        await Application.Current.MainPage.Navigation.PushAsync(new Views.GestionDeProductos()))
+                    Title = "Buscar",
+                    // Icon = "buscar.png",
+                    ButtonColor = Color.FromArgb("#4CAF50"),
+                    Command = new Command(() =>
+                        Application.Current.MainPage.DisplayAlert("Buscar", "Función Buscar en desarrollo", "OK"))
                 }
             };
         }

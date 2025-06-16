@@ -1,87 +1,78 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
              x:Class="MauiAppGestorMovil.Views.FrameDashboard"
              BackgroundColor="#849EDE"
              Title="Dashboard">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Estilo local para los botones del dashboard -->
+            <Style x:Key="BotonDashboardBaseStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontFamily" Value="Inter" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="16" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ScrollView>
         <VerticalStackLayout Padding="24,40,24,24" Spacing="36">
 
-            <!-- Encabezado: logo + nombre -->
-            <HorizontalStackLayout Spacing="18" HorizontalOptions="Start">
-                <Image Source="logo_empresa.png"
-                       WidthRequest="60"
-                       HeightRequest="90"
-                       VerticalOptions="Start"/>
-                <VerticalStackLayout Spacing="4" VerticalOptions="Start">
-                    <Label Text="StockMaster"
-                           FontSize="44"
-                           FontAttributes="Bold"
-                           TextColor="#FBA4A4"
-                           HorizontalOptions="Start"/>
-                    <Label Text="Gestión Eficiente de Inventarios"
-                           FontSize="16"
-                           TextColor="#E6BFE7"
-                           HorizontalOptions="Start"/>
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
+            <!-- Encabezado reutilizable -->
+            <views:EncabezadoEmpresa TituloPagina="" />
+
 
             <!-- Botones alineados verticalmente a la izquierda -->
             <HorizontalStackLayout HorizontalOptions="Start">
-                <VerticalStackLayout WidthRequest="240" Spacing="20">
+                <VerticalStackLayout WidthRequest="158" Spacing="20">
 
                     <!-- Botón: Productos -->
                     <Frame CornerRadius="16"
-                           BackgroundColor="#E1E8FB"
+                           BackgroundColor="#FFB833"
                            HasShadow="True"
-                           Padding="16">
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="Productos"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="#333"/>
-                            <Button Text="Ir"
-                                    Command="{Binding DashboardOptions[0].Command}"
-                                    BackgroundColor="#FF9800"
-                                    TextColor="White"
-                                    CornerRadius="8"/>
-                        </VerticalStackLayout>
+                           Padding="0"
+                           Margin="5"
+                           HeightRequest="45">
+                        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                            <Button Text="Productos"
+                                    BackgroundColor="#FFB833"
+                                    Style="{StaticResource BotonDashboardBaseStyle}"
+                                    Command="{Binding DashboardOptions[0].Command}" />
+                        </Grid>
                     </Frame>
 
                     <!-- Botón: Categorías -->
                     <Frame CornerRadius="16"
-                           BackgroundColor="#E1E8FB"
+                           BackgroundColor="#33C2FF"
                            HasShadow="True"
-                           Padding="16">
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="Categorías"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="#333"/>
-                            <Button Text="Ir"
-                                    Command="{Binding DashboardOptions[1].Command}"
-                                    BackgroundColor="#2196F3"
-                                    TextColor="White"
-                                    CornerRadius="8"/>
-                        </VerticalStackLayout>
+                           Padding="0"
+                           Margin="5"
+                           HeightRequest="45">
+                        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                            <Button Text="Categorías"
+                                    BackgroundColor="#33C2FF"
+                                    Style="{StaticResource BotonDashboardBaseStyle}"
+                                    Command="{Binding DashboardOptions[1].Command}" />
+                        </Grid>
                     </Frame>
 
                     <!-- Botón: Buscar -->
                     <Frame CornerRadius="16"
-                           BackgroundColor="#E1E8FB"
+                           BackgroundColor="#CA5FE5"
                            HasShadow="True"
-                           Padding="16">
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="Buscar"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="#333"/>
-                            <Button Text="Ir"
-                                    Command="{Binding DashboardOptions[2].Command}"
-                                    BackgroundColor="#4CAF50"
-                                    TextColor="White"
-                                    CornerRadius="8"/>
-                        </VerticalStackLayout>
+                           Padding="0"
+                           Margin="5"
+                           HeightRequest="45">
+                        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                            <Button Text="Buscar"
+                                    BackgroundColor="#CA5FE5"
+                                    Style="{StaticResource BotonDashboardBaseStyle}"
+                                    Command="{Binding DashboardOptions[2].Command}" />
+                        </Grid>
                     </Frame>
 
                 </VerticalStackLayout>
