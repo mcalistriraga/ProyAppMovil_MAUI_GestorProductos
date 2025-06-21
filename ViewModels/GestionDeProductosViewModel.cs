@@ -2,55 +2,81 @@
 using System.Windows.Input;
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
-using System.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace MauiAppGestorMovil.ViewModels
 {
     public class GestionDeProductosViewModel : BindableObject
     {
-        private RepositorioProductos _repoProductos;
-        private RepositorioCategorias _repoCategorias;
-
-        public ObservableCollection<ProductoVisual> Productos { get; }
+        public ObservableCollection<Producto> Productos { get; set; }
 
         public ICommand AgregarProductoCommand { get; }
+        public ICommand VerProductoCommand { get; }
 
-        // ✅ Agrega esta propiedad
-        public Action<string, string>? MostrarMensaje { get; set; }
+        public Func<string, string, Task>? MostrarMensaje { get; set; }
+
+        private int proximoId = 1;
+
+        private RepositorioProductos repositorioProductos;
+        private RepositorioCategorias repositorioCategorias;
 
         public GestionDeProductosViewModel()
         {
-            _repoProductos = new RepositorioProductos();
-            _repoCategorias = new RepositorioCategorias();
+            Productos = new ObservableCollection<Producto>();
+            AgregarProductoCommand = new Command(async () => await AgregarProducto());
+            VerProductoCommand = new Command(VerProducto);
 
-            Productos = new ObservableCollection<ProductoVisual>(
-                _repoProductos.ObtenerTodos()
-                    .Select(p => new ProductoVisual
-                    {
-                        Id = p.Id,
-                        Nombre = p.Nombre,
-                        Precio = p.Precio,
-                        CategoriaNombre = _repoCategorias.BuscarPorId(p.IdCategoria)?.Nombre ?? "(Sin categoría)"
-                    }));
+            repositorioProductos = new RepositorioProductos();
+            repositorioCategorias = new RepositorioCategorias();
 
-            AgregarProductoCommand = new Command(AgregarProducto);
+            CargarProductos();
         }
 
-        private void AgregarProducto()
+        private void CargarProductos()
         {
-            // ✅ Usa la propiedad para mostrar un mensaje desde la vista
-            MostrarMensaje?.Invoke("Agregar", "Funcionalidad en construcción");
+            var productosDesdeArchivo = repositorioProductos.ObtenerTodos();
+
+            foreach (var producto in productosDesdeArchivo)
+            {
+                var categoria = repositorioCategorias.BuscarPorId(producto.IdCategoria);
+                producto.CategoriaNombre = categoria?.Nombre ?? "Sin categoría";
+
+                Productos.Add(producto);
+
+                if (producto.Id >= proximoId)
+                {
+                    proximoId = producto.Id + 1;
+                }
+            }
         }
-    }
 
+        private async Task AgregarProducto()
+        {
+            var nuevoProducto = new Producto
+            {
+                Id = proximoId++,
+                Nombre = $"Producto #{proximoId}",
+                IdCategoria = 1,
+                Precio = 9.99m,
+                Stock = 100,
+                Descripcion = "Producto de prueba",
+                CategoriaNombre = "Electrónica"
+            };
 
-    public class ProductoVisual
-    {
-        public int Id { get; set; }
-        public string Nombre { get; set; } = "";
-        public decimal Precio { get; set; }
-        public string CategoriaNombre { get; set; } = "";
+            Productos.Add(nuevoProducto);
+            repositorioProductos.Agregar(nuevoProducto);
+
+            if (MostrarMensaje != null)
+            {
+                await MostrarMensaje.Invoke("Producto Agregado", $"Producto '{nuevoProducto.Nombre}' agregado.");
+            }
+        }
+
+        private void VerProducto()
+        {
+            // Puedes reemplazar esto luego por navegación real
+            MostrarMensaje?.Invoke("Ver", "Funcionalidad de 'Ver producto' en desarrollo.");
+        }
     }
 }
-

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -25,5 +26,7 @@ namespace MauiAppGestorMovil.Services
             var json = File.ReadAllText(ruta);
             return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>();
         }
+
+       
     }
 }
