@@ -1,21 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
+             xmlns:controls="clr-namespace:MauiAppGestorMovil.Controls"
              x:Class="MauiAppGestorMovil.Views.GestionDeProductos"
-             Title="Gestión de Productos">
+             Title="Gestión de Productos"
+             BackgroundColor="#849DE0">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <Label Text="Gestión de Productos" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+            <views:EncabezadoEmpresa TituloPagina="Gestión de Productos..." />
 
-        <ListView x:Name="lvProductos" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Nombre}" Detail="{Binding CategoriaNombre}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            <Frame CornerRadius="10"
+                   BackgroundColor="#5679EA"
+                   HasShadow="True"
+                   Padding="0"
+                   HeightRequest="37"
+                   WidthRequest="169"
+                   Margin="206,0,0,0"
+                   HorizontalOptions="Start">
+                <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                    <Button Text="+ Agregar Producto"
+                        BackgroundColor="#5679EA"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        FontFamily="Inter"
+                        CornerRadius="10"
+                        Padding="0"
+                        Clicked="btnAgregarProducto_Clicked"/>
+                </Grid>
+            </Frame>
 
-        <Button Text="Agregar Producto" Clicked="btnAgregarProducto_Clicked" />
+            <!-- Lista de productos con ViewCell personalizado -->
+            <ListView x:Name="lvProductos"
+                      HasUnevenRows="True"
+                      BackgroundColor="Transparent"
+                      SeparatorVisibility="None"
+                      ItemsSource="{Binding Productos}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10"
+                       Padding="10"
+                       Margin="0,2"
+                       BackgroundColor="#E1E8FB"
+                       HasShadow="True">
+                                <StackLayout Spacing="4">
+                                    <Label Text="{Binding Nombre}"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               TextColor="Black" />
 
-    </VerticalStackLayout>
+                                    <Label Text="{Binding Descripcion}"
+                               FontSize="14"
+                               TextColor="Black"
+                               FontFamily="Inter" />
+
+                                    <Label Text="{Binding CategoriaNombre, StringFormat='Categoría: {0}'}"
+                               FontSize="13"
+                               TextColor="Black"
+                               FontFamily="Inter" />
+
+                                    <Label Text="{Binding Precio, StringFormat='Precio: Bs {0:F2}'}"
+                               FontSize="13"
+                               TextColor="Black"
+                               FontFamily="Inter" />
+
+                                    <Label Text="{Binding Stock, StringFormat='Cantidad: {0}'}"
+                               FontSize="13"
+                               TextColor="Black"
+                               FontFamily="Inter" />
+
+                                    <!-- Controles: +Ver, Editar, Eliminar -->
+                                    <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="End"
+                                     Spacing="10"
+                                     Margin="0,4,0,0">
+
+                                        <Frame CornerRadius="10"
+                                               BackgroundColor="#5779EA"
+                                               HasShadow="True"
+                                               Padding="0"
+                                               HeightRequest="32"
+                                               WidthRequest="60"
+                                               HorizontalOptions="Start">
+                                            <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                                                <controls:BotonPersonalizado 
+                                                    Texto="Ver+"
+                                                    ColorFondo="#5779EA"
+                                                    Ancho="60"
+                                                    Alto="32"
+                                                    TamanoLetra="14"
+                                                    CornerRadius="10"
+                                                    Padding="0"
+                                                    Clicked="btnVerProducto_Clicked"/>
+                                            </Grid>
+                                        </Frame>
+
+
+                                        <ImageButton Source="iconoeditar_01.png"
+                                         HeightRequest="30"
+                                         WidthRequest="30"
+                                         BackgroundColor="Transparent"
+                                         Clicked="btnEditarProducto_Clicked" />
+
+                                        <ImageButton Source="iconoeliminar_01.png"
+                                         HeightRequest="30"
+                                         WidthRequest="30"
+                                         BackgroundColor="Transparent"
+                                         Clicked="btnEliminarProducto_Clicked" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
