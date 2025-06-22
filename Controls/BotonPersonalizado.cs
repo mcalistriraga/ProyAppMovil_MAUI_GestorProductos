@@ -1,14 +1,13 @@
 ﻿using Microsoft.Maui.Controls;
-using System;
 using System.Windows.Input;
 
 namespace MauiAppGestorMovil.Controls
 {
-    public partial class BotonPersonalizado : Button
+    public class BotonPersonalizado : Button
     {
         public BotonPersonalizado()
         {
-            // Establece bindings para las propiedades definidas
+            // Asignamos los bindings directamente desde código
             this.SetBinding(TextProperty, new Binding(nameof(Texto), source: this));
             this.SetBinding(BackgroundColorProperty, new Binding(nameof(ColorFondo), source: this));
             this.SetBinding(WidthRequestProperty, new Binding(nameof(Ancho), source: this));
@@ -39,7 +38,7 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(ColorFondoProperty, value);
         }
 
-        // Ancho del botón
+        // Ancho
         public static readonly BindableProperty AnchoProperty =
             BindableProperty.Create(nameof(Ancho), typeof(double), typeof(BotonPersonalizado), 100.0);
 
@@ -49,7 +48,7 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(AnchoProperty, value);
         }
 
-        // Alto del botón
+        // Alto
         public static readonly BindableProperty AltoProperty =
             BindableProperty.Create(nameof(Alto), typeof(double), typeof(BotonPersonalizado), 40.0);
 
@@ -59,7 +58,7 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(AltoProperty, value);
         }
 
-        // Tamaño de fuente del texto
+        // Tamaño de letra
         public static readonly BindableProperty TamanoLetraProperty =
             BindableProperty.Create(nameof(TamanoLetra), typeof(double), typeof(BotonPersonalizado), 14.0);
 
@@ -69,7 +68,7 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(TamanoLetraProperty, value);
         }
 
-        // Esquinas redondeadas del botón
+        // Esquinas redondeadas
         public static readonly BindableProperty CornerRadiusProperty =
             BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(BotonPersonalizado), 10);
 
@@ -79,7 +78,17 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(CornerRadiusProperty, value);
         }
 
-        // Comando para MVVM
+        // Padding interno
+        public static readonly BindableProperty PaddingProperty =
+            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(BotonPersonalizado), new Thickness(0));
+
+        public Thickness Padding
+        {
+            get => (Thickness)GetValue(PaddingProperty);
+            set => SetValue(PaddingProperty, value);
+        }
+
+        // Comando (soporte MVVM)
         public static readonly BindableProperty ComandoProperty =
             BindableProperty.Create(nameof(Comando), typeof(ICommand), typeof(BotonPersonalizado), null);
 
@@ -87,16 +96,6 @@ namespace MauiAppGestorMovil.Controls
         {
             get => (ICommand)GetValue(ComandoProperty);
             set => SetValue(ComandoProperty, value);
-        }
-
-        // Padding interno del botón (nuevo)
-        public static readonly BindableProperty PaddingProperty =
-            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(BotonPersonalizado), new Thickness(0));
-
-        public new Thickness Padding
-        {
-            get => (Thickness)GetValue(PaddingProperty);
-            set => SetValue(PaddingProperty, value);
         }
     }
 }
