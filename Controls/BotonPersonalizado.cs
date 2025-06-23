@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using System;
 using System.Windows.Input;
 
 namespace MauiAppGestorMovil.Controls
@@ -7,7 +8,7 @@ namespace MauiAppGestorMovil.Controls
     {
         public BotonPersonalizado()
         {
-            // Asignamos los bindings directamente desde código
+            // Asignamos los bindings directamente a las propiedades de Button
             this.SetBinding(TextProperty, new Binding(nameof(Texto), source: this));
             this.SetBinding(BackgroundColorProperty, new Binding(nameof(ColorFondo), source: this));
             this.SetBinding(WidthRequestProperty, new Binding(nameof(Ancho), source: this));
@@ -15,7 +16,6 @@ namespace MauiAppGestorMovil.Controls
             this.SetBinding(FontSizeProperty, new Binding(nameof(TamanoLetra), source: this));
             this.SetBinding(CornerRadiusProperty, new Binding(nameof(CornerRadius), source: this));
             this.SetBinding(CommandProperty, new Binding(nameof(Comando), source: this));
-            this.SetBinding(PaddingProperty, new Binding(nameof(Padding), source: this));
         }
 
         // Texto del botón
@@ -68,34 +68,31 @@ namespace MauiAppGestorMovil.Controls
             set => SetValue(TamanoLetraProperty, value);
         }
 
-        // Esquinas redondeadas
-        public static readonly BindableProperty CornerRadiusProperty =
+        // Esquinas redondeadas (evita warning CS0108)
+        public static readonly new BindableProperty CornerRadiusProperty =
             BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(BotonPersonalizado), 10);
 
-        public int CornerRadius
+        public new int CornerRadius
         {
             get => (int)GetValue(CornerRadiusProperty);
             set => SetValue(CornerRadiusProperty, value);
         }
 
-        // Padding interno
-        public static readonly BindableProperty PaddingProperty =
-            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(BotonPersonalizado), new Thickness(0));
-
-        public Thickness Padding
-        {
-            get => (Thickness)GetValue(PaddingProperty);
-            set => SetValue(PaddingProperty, value);
-        }
-
-        // Comando (soporte MVVM)
-        public static readonly BindableProperty ComandoProperty =
+        // Comando para soporte MVVM (evita warning CS0108)
+        public static readonly new BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Comando), typeof(ICommand), typeof(BotonPersonalizado), null);
 
+        public new ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        // Propiedad pública "Comando" para mantener compatibilidad con la app
         public ICommand Comando
         {
-            get => (ICommand)GetValue(ComandoProperty);
-            set => SetValue(ComandoProperty, value);
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
     }
 }
