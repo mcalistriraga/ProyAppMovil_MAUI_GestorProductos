@@ -14,6 +14,7 @@
         public int Stock { get; set; }
 
         // Otros atributos que necesites...
+        public Dictionary<string, string> PropiedadesEspecificas { get; set; } = new();
     }
 }
     

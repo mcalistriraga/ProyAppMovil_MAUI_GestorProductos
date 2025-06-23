@@ -1,42 +1,96 @@
 [
   {
     "Id": 1,
-    "Nombre": "Laptop Lenovo",
-    "IdCategoria": 2,
-    "Precio": 999.99,
-    "Stock": 20,
-    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD"
+    "Nombre": "Laptop HP Envy",
+    "Descripcion": "Laptop HP con pantalla táctil, 16GB RAM, 512GB SSD",
+    "IdCategoria": 3,
+    "Precio": 1200.50,
+    "Stock": 10,
+    "PropiedadesEspecificas": {
+      "Pantalla": "15.6 pulgadas",
+      "Peso": "1.8 kg",
+      "Marca": "HP",
+      "Garantía": "2 años",
+      "RAM": "16GB",
+      "Almacenamiento": "512GB SSD"
+    }
   },
   {
     "Id": 2,
-    "Nombre": "iPhone 14",
-    "IdCategoria": 3,
-    "Precio": 1199.00,
-    "Stock": 15,
-    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual"
+    "Nombre": "Desktop Dell Inspiron",
+    "Descripcion": "Computadora de escritorio con procesador Intel i5",
+    "IdCategoria": 4,
+    "Precio": 800.00,
+    "Stock": 5,
+    "PropiedadesEspecificas": {
+      "Fuente de poder": "500W",
+      "Monitor incluido": "Sí",
+      "Marca": "Dell",
+      "Garantía": "1 año",
+      "RAM": "8GB",
+      "Almacenamiento": "1TB HDD"
+    }
   },
   {
     "Id": 3,
-    "Nombre": "Licuadora Oster",
+    "Nombre": "iPhone 14 Pro",
+    "Descripcion": "Teléfono Apple con cámara triple y pantalla OLED",
     "IdCategoria": 5,
-    "Precio": 89.99,
-    "Stock": 30,
-    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades"
+    "Precio": 999.99,
+    "Stock": 15,
+    "PropiedadesEspecificas": {
+      "Sistema Operativo": "iOS",
+      "Tamaño Pantalla": "6.1 pulgadas",
+      "Cámara": "Triple 12MP",
+      "Marca": "Apple",
+      "Garantía": "1 año"
+    }
   },
   {
     "Id": 4,
-    "Nombre": "Televisor Samsung 50\"",
-    "IdCategoria": 1,
-    "Precio": 499.00,
-    "Stock": 10,
-    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz"
+    "Nombre": "Silla de Oficina Ergonómica",
+    "Descripcion": "Silla con respaldo ajustable y base de aluminio",
+    "IdCategoria": 8,
+    "Precio": 150.00,
+    "Stock": 20,
+    "PropiedadesEspecificas": {
+      "Respaldo ajustable": "Sí",
+      "Material de la base": "Aluminio",
+      "Material": "Cuero",
+      "Color": "Negro",
+      "Tamaño": "Estándar",
+      "Estilo": "Moderno"
+    }
   },
   {
     "Id": 5,
-    "Nombre": "Aspiradora Robot Xiaomi",
-    "IdCategoria": 4,
-    "Precio": 299.50,
-    "Stock": 8,
-    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática"
+    "Nombre": "Mesa de Comedor Roble",
+    "Descripcion": "Mesa de madera maciza tipo roble, para 6 personas",
+    "IdCategoria": 9,
+    "Precio": 350.00,
+    "Stock": 7,
+    "PropiedadesEspecificas": {
+      "Tipo de madera": "Roble",
+      "Forma": "Rectangular",
+      "Material": "Madera",
+      "Color": "Natural",
+      "Tamaño": "Grande",
+      "Estilo": "Clásico"
+    }
+  },
+  {
+    "Id": 6,
+    "Nombre": "Licuadora Oster",
+    "Descripcion": "Licuadora con vaso de vidrio y 3 velocidades",
+    "IdCategoria": 10,
+    "Precio": 89.99,
+    "Stock": 30,
+    "PropiedadesEspecificas": {
+      "Voltaje": "110V",
+      "Capacidad": "1.5 litros",
+      "Velocidades": "3",
+      "Material": "Plástico",
+      "Color": "Blanco"
+    }
   }
 ]
