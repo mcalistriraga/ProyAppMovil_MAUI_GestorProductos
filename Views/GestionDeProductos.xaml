@@ -12,7 +12,7 @@
 
             <views:EncabezadoEmpresa TituloPagina="Gestión de Productos..." />
 
-             <Frame CornerRadius="10"
+            <Frame CornerRadius="10"
                    BackgroundColor="#5679EA"
                    HasShadow="True"
                    Padding="0"
@@ -22,17 +22,17 @@
                    HorizontalOptions="Start">
                 <Grid VerticalOptions="Center" HorizontalOptions="Center">
                     <Button Text="+ Agregar Producto"
-                        BackgroundColor="#5679EA"
-                        TextColor="White"
-                        FontSize="15"
-                        FontAttributes="Bold"
-                        FontFamily="Inter"
-                        CornerRadius="10"
-                        Padding="0"
-                        Clicked="btnAgregarProducto_Clicked"/>
+                            BackgroundColor="#5679EA"
+                            TextColor="White"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            FontFamily="Inter"
+                            CornerRadius="10"
+                            Padding="0"
+                            Command="{Binding AgregarProductoCommand}" />
                 </Grid>
             </Frame>
-            
+
             <!-- Lista de productos con ViewCell personalizado -->
             <ListView x:Name="lvProductos"
                       HasUnevenRows="True"
@@ -43,72 +43,65 @@
                     <DataTemplate>
                         <ViewCell>
                             <Frame CornerRadius="10"
-                       Padding="10"
-                       Margin="0,2"
-                       BackgroundColor="#E1E8FB"
-                       HasShadow="True">
+                                   Padding="10"
+                                   Margin="0,2"
+                                   BackgroundColor="#E1E8FB"
+                                   HasShadow="True">
                                 <StackLayout Spacing="4">
                                     <Label Text="{Binding Nombre}"
-                               FontAttributes="Bold"
-                               FontSize="18"
-                               TextColor="Black" />
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                           TextColor="Black" />
 
                                     <Label Text="{Binding Descripcion}"
-                               FontSize="14"
-                               TextColor="Black"
-                               FontFamily="Inter" />
+                                           FontSize="14"
+                                           TextColor="Black"
+                                           FontFamily="Inter" />
 
                                     <Label Text="{Binding CategoriaNombre, StringFormat='Categoría: {0}'}"
-                               FontSize="13"
-                               TextColor="Black"
-                               FontFamily="Inter" />
+                                           FontSize="13"
+                                           TextColor="Black"
+                                           FontFamily="Inter" />
 
                                     <Label Text="{Binding Precio, StringFormat='Precio: Bs {0:F2}'}"
-                               FontSize="13"
-                               TextColor="Black"
-                               FontFamily="Inter" />
+                                           FontSize="13"
+                                           TextColor="Black"
+                                           FontFamily="Inter" />
 
-                                    <Label Text="{Binding Stock, StringFormat='Cantidad: {0}'}"
-                               FontSize="13"
-                               TextColor="Black"
-                               FontFamily="Inter" />
+                                    <Label Text="{Binding Stock, StringFormat='Stock: {0}'}"
+                                           FontSize="13"
+                                           TextColor="Black"
+                                           FontFamily="Inter" />
 
                                     <!-- Controles: +Ver, Editar, Eliminar -->
                                     <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="End"
-                                     Spacing="10"
-                                     Margin="0,4,0,0">
+                                                 HorizontalOptions="End"
+                                                 Spacing="10"
+                                                 Margin="0,4,0,0">
 
-                                        <Frame CornerRadius="10"
-                                               BackgroundColor="#5779EA"
-                                               HasShadow="True"
-                                               Padding="0"
-                                               HeightRequest="32"
-                                               WidthRequest="60">
-                                            <Grid VerticalOptions="Center" HorizontalOptions="Center">
-                                                <controls:BotonPersonalizado
-                                                    Texto="Ver+"
-                                                    ColorFondo="#5779EA"
-                                                    Ancho="60"
-                                                    Alto="32"
-                                                    TamanoLetra="14"
-                                                    CornerRadius="10"
-                                                    Padding="0"
-                                                    Clicked="btnVerProducto_Clicked"/>
-                                            </Grid>
-                                        </Frame>
+                                        <controls:BotonPersonalizado
+                                            Texto="Ver+"
+                                            ColorFondo="#5779EA"
+                                            Ancho="60"
+                                            Alto="32"
+                                            TamanoLetra="14"
+                                            CornerRadiusPersonalizado="10"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
+                                            CommandParameter="{Binding .}" />
 
                                         <ImageButton Source="iconoeditar_01.png"
-                                         HeightRequest="30"
-                                         WidthRequest="30"
-                                         BackgroundColor="Transparent"
-                                         Clicked="btnEditarProducto_Clicked" />
+                                                     HeightRequest="30"
+                                                     WidthRequest="30"
+                                                     BackgroundColor="Transparent"
+                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EditarProductoCommand}"
+                                                     CommandParameter="{Binding .}" />
 
                                         <ImageButton Source="iconoeliminar_01.png"
-                                         HeightRequest="30"
-                                         WidthRequest="30"
-                                         BackgroundColor="Transparent"
-                                         Clicked="btnEliminarProducto_Clicked" />
+                                                     HeightRequest="30"
+                                                     WidthRequest="30"
+                                                     BackgroundColor="Transparent"
+                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EliminarProductoCommand}"
+                                                     CommandParameter="{Binding .}" />
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
