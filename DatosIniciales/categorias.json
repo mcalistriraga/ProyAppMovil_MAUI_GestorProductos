@@ -2,65 +2,26 @@
   {
     "Id": 1,
     "Nombre": "Electrónica",
-    "Propiedades": ["Marca", "Garantía"],
-    "Subcategorias": [
-      {
-        "Id": 2,
-        "Nombre": "Computadoras",
-        "Propiedades": ["RAM", "Almacenamiento"],
-        "Subcategorias": [
-          {
-            "Id": 3,
-            "Nombre": "Laptops",
-            "Propiedades": ["Pantalla", "Peso"],
-            "Subcategorias": []
-          },
-          {
-            "Id": 4,
-            "Nombre": "Desktops",
-            "Propiedades": ["Fuente de poder", "Monitor incluido"],
-            "Subcategorias": []
-          }
-        ]
-      },
-      {
-        "Id": 5,
-        "Nombre": "Teléfonos",
-        "Propiedades": ["Sistema Operativo", "Tamaño Pantalla", "Cámara"],
-        "Subcategorias": []
-      }
-    ]
+    "IdPadre": null
   },
   {
-    "Id": 6,
+    "Id": 2,
+    "Nombre": "Laptops",
+    "IdPadre": 1
+  },
+  {
+    "Id": 3,
+    "Nombre": "Teléfonos",
+    "IdPadre": 1
+  },
+  {
+    "Id": 4,
     "Nombre": "Hogar",
-    "Propiedades": ["Material", "Color"],
-    "Subcategorias": [
-      {
-        "Id": 7,
-        "Nombre": "Muebles",
-        "Propiedades": ["Tamaño", "Estilo"],
-        "Subcategorias": [
-          {
-            "Id": 8,
-            "Nombre": "Sillas",
-            "Propiedades": ["Respaldo ajustable", "Material de la base"],
-            "Subcategorias": []
-          },
-          {
-            "Id": 9,
-            "Nombre": "Mesas",
-            "Propiedades": ["Tipo de madera", "Forma"],
-            "Subcategorias": []
-          }
-        ]
-      },
-      {
-        "Id": 10,
-        "Nombre": "Cocina",
-        "Propiedades": ["Voltaje", "Capacidad", "Velocidades"],
-        "Subcategorias": []
-      }
-    ]
+    "IdPadre": null
+  },
+  {
+    "Id": 5,
+    "Nombre": "Cocina",
+    "IdPadre": 4
   }
 ]
