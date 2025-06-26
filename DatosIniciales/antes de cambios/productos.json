@@ -1,42 +1,28 @@
 [
   {
     "Id": 1,
-    "Nombre": "Laptop Lenovo",
-    "IdCategoria": 2,
-    "Precio": 999.99,
-    "Stock": 20,
-    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD"
+    "Nombre": "Mouse inalámbrico",
+    "IdCategoria": 1,
+    "Descripcion": "Mouse óptico con conexión USB",
+    "Stock": 35,
+    "Precio": 12.99,
+    "CategoriaNombre": "Electrónica",
+    "PropiedadesEspecificas": {
+      "Marca": "Logitech",
+      "Color": "Negro"
+    }
   },
   {
     "Id": 2,
-    "Nombre": "iPhone 14",
-    "IdCategoria": 3,
-    "Precio": 1199.00,
-    "Stock": 15,
-    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual"
-  },
-  {
-    "Id": 3,
-    "Nombre": "Licuadora Oster",
-    "IdCategoria": 5,
-    "Precio": 89.99,
-    "Stock": 30,
-    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades"
-  },
-  {
-    "Id": 4,
-    "Nombre": "Televisor Samsung 50\"",
-    "IdCategoria": 1,
-    "Precio": 499.00,
-    "Stock": 10,
-    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz"
-  },
-  {
-    "Id": 5,
-    "Nombre": "Aspiradora Robot Xiaomi",
-    "IdCategoria": 4,
-    "Precio": 299.50,
-    "Stock": 8,
-    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática"
+    "Nombre": "Cuaderno Universitario",
+    "IdCategoria": 2,
+    "Descripcion": "Cuaderno de 100 hojas rayadas",
+    "Stock": 60,
+    "Precio": 2.5,
+    "CategoriaNombre": "Papelería",
+    "PropiedadesEspecificas": {
+      "Tamaño": "Carta",
+      "Tipo de hoja": "Rayada"
+    }
   }
 ]

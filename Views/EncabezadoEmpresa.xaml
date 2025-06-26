@@ -8,20 +8,21 @@
 
         <!-- Encabezado: logo + nombre -->
         <HorizontalStackLayout Spacing="18" HorizontalOptions="Start">
-            <Image Source="img_logoempresa.png"
+            <Image x:Name="LogoEmpresa"
+                   Source="img_logoempresa.png"
                    WidthRequest="60"
                    HeightRequest="90"
-                   VerticalOptions="Start"/>
+                   VerticalOptions="Start" />
             <VerticalStackLayout Spacing="4" VerticalOptions="Start">
                 <Label Text="StockMaster"
                        FontSize="44"
                        FontAttributes="Bold"
                        TextColor="#FBA4A4"
-                       HorizontalOptions="Start"/>
+                       HorizontalOptions="Start" />
                 <Label Text="Gestión Eficiente de Inventarios"
                        FontSize="16"
                        TextColor="#E6BFE7"
-                       HorizontalOptions="Start"/>
+                       HorizontalOptions="Start" />
             </VerticalStackLayout>
         </HorizontalStackLayout>
 
@@ -40,7 +41,7 @@
                TextColor="White"
                FontFamily="Inter"
                Padding="40,24,0,0"  
-            HorizontalOptions="Start"/>
+               HorizontalOptions="Start" />
 
     </VerticalStackLayout>
 </ContentView>
