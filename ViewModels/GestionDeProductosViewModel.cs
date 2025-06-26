@@ -93,24 +93,26 @@ namespace MauiAppGestorMovil.ViewModels
 
         private async void EliminarProducto(Producto producto)
         {
-            if (producto == null) return;
+            if (producto == null)
+                return;
 
             bool confirmado = await Application.Current.MainPage.DisplayAlert(
                 "Confirmar eliminación",
-                $"¿Está seguro que desea eliminar el producto '{producto.Nombre}'?",
-                "Sí", "No");
+                $"¿Deseas eliminar el producto:\n\n'{producto.Nombre}'?",
+                "Sí", "Cancelar");
 
-            if (!confirmado) return;
+            if (!confirmado)
+                return;
 
             try
             {
-                // Elimina del repositorio
+                // 1. Eliminar del archivo
                 repositorioProductos.Eliminar(producto.Id);
 
-                // Obtiene nueva lista
+                // 2. Actualizar la colección
                 var nuevaLista = repositorioProductos.ObtenerTodos();
 
-                // Actualiza el observable en el hilo principal
+                // 3. Refrescar UI en el hilo principal
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     Productos.Clear();
@@ -119,21 +121,18 @@ namespace MauiAppGestorMovil.ViewModels
                     {
                         var cat = repositorioCategorias.BuscarPorId(prod.IdCategoria);
                         prod.CategoriaNombre = cat?.Nombre ?? "Sin categoría";
-                        Productos.Add(prod);  // <<-- ABORTA AQUI
+                        Productos.Add(prod);
                     }
                 });
 
-                if (MostrarMensaje != null)
-                {
-                    await MostrarMensaje.Invoke("Éxito", $"Producto '{producto.Nombre}' eliminado correctamente.");
-                }
+                // 4. Mostrar mensaje de éxito
+                await MostrarMensaje?.Invoke("Producto eliminado", $"'{producto.Nombre}' fue eliminado correctamente.");
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", $"Fallo al eliminar: {ex.Message}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", $"Ocurrió un error al eliminar:\n{ex.Message}", "OK");
             }
         }
-
-
+       
     }
 }
