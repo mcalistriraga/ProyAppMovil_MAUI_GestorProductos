@@ -33,82 +33,78 @@
                 </Grid>
             </Frame>
 
-            <!-- Lista de productos con ViewCell personalizado -->
-            <ListView x:Name="lvProductos"
-                      HasUnevenRows="True"
-                      BackgroundColor="Transparent"
-                      SeparatorVisibility="None"
-                      ItemsSource="{Binding Productos}">
-                <ListView.ItemTemplate>
+            <!-- Lista de productos con CollectionView -->
+            <CollectionView x:Name="cvProductos"
+                            ItemsSource="{Binding Productos}"
+                            BackgroundColor="Transparent">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Frame CornerRadius="10"
-                                   Padding="10"
-                                   Margin="0,2"
-                                   BackgroundColor="#E1E8FB"
-                                   HasShadow="True">
-                                <StackLayout Spacing="4">
-                                    <Label Text="{Binding Nombre}"
-                                           FontAttributes="Bold"
-                                           FontSize="18"
-                                           TextColor="Black" />
+                        <Frame CornerRadius="10"
+                               Padding="10"
+                               Margin="0,2"
+                               BackgroundColor="#E1E8FB"
+                               HasShadow="True">
+                            <StackLayout Spacing="4">
+                                <Label Text="{Binding Nombre}"
+                                       FontAttributes="Bold"
+                                       FontSize="18"
+                                       TextColor="Black" />
 
-                                    <Label Text="{Binding Descripcion}"
-                                           FontSize="14"
-                                           TextColor="Black"
-                                           FontFamily="Inter" />
+                                <Label Text="{Binding Descripcion}"
+                                       FontSize="14"
+                                       TextColor="Black"
+                                       FontFamily="Inter" />
 
-                                    <Label Text="{Binding CategoriaNombre, StringFormat='Categoría: {0}'}"
-                                           FontSize="13"
-                                           TextColor="Black"
-                                           FontFamily="Inter" />
+                                <Label Text="{Binding CategoriaNombre, StringFormat='Categoría: {0}'}"
+                                       FontSize="13"
+                                       TextColor="Black"
+                                       FontFamily="Inter" />
 
-                                    <Label Text="{Binding Precio, StringFormat='Precio: Bs {0:F2}'}"
-                                           FontSize="13"
-                                           TextColor="Black"
-                                           FontFamily="Inter" />
+                                <Label Text="{Binding Precio, StringFormat='Precio: Bs {0:F2}'}"
+                                       FontSize="13"
+                                       TextColor="Black"
+                                       FontFamily="Inter" />
 
-                                    <Label Text="{Binding Stock, StringFormat='Stock: {0}'}"
-                                           FontSize="13"
-                                           TextColor="Black"
-                                           FontFamily="Inter" />
+                                <Label Text="{Binding Stock, StringFormat='Stock: {0}'}"
+                                       FontSize="13"
+                                       TextColor="Black"
+                                       FontFamily="Inter" />
 
-                                    <!-- Controles: +Ver, Editar, Eliminar -->
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="End"
-                                                 Spacing="10"
-                                                 Margin="0,4,0,0">
+                                <!-- Controles: +Ver, Editar, Eliminar -->
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="End"
+                                             Spacing="10"
+                                             Margin="0,4,0,0">
 
-                                        <controls:BotonPersonalizado
-                                            Texto="Ver+"
-                                            ColorFondo="#5779EA"
-                                            Ancho="60"
-                                            Alto="32"
-                                            TamanoLetra="14"
-                                            CornerRadiusPersonalizado="10"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
-                                            CommandParameter="{Binding .}" />
+                                    <controls:BotonPersonalizado
+                                        Texto="Ver+"
+                                        ColorFondo="#5779EA"
+                                        Ancho="60"
+                                        Alto="32"
+                                        TamanoLetra="14"
+                                        CornerRadiusPersonalizado="10"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
+                                        CommandParameter="{Binding .}" />
 
-                                        <ImageButton Source="iconoeditar_01.png"
-                                                     HeightRequest="30"
-                                                     WidthRequest="30"
-                                                     BackgroundColor="Transparent"
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EditarProductoCommand}"
-                                                     CommandParameter="{Binding .}" />
+                                    <ImageButton Source="iconoeditar_01.png"
+                                                 HeightRequest="30"
+                                                 WidthRequest="30"
+                                                 BackgroundColor="Transparent"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EditarProductoCommand}"
+                                                 CommandParameter="{Binding .}" />
 
-                                        <ImageButton Source="iconoeliminar_01.png"
-                                                     HeightRequest="30"
-                                                     WidthRequest="30"
-                                                     BackgroundColor="Transparent"
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EliminarProductoCommand}"
-                                                     CommandParameter="{Binding .}" />
-                                    </StackLayout>
+                                    <ImageButton Source="iconoeliminar_01.png"
+                                                 HeightRequest="30"
+                                                 WidthRequest="30"
+                                                 BackgroundColor="Transparent"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EliminarProductoCommand}"
+                                                 CommandParameter="{Binding .}" />
                                 </StackLayout>
-                            </Frame>
-                        </ViewCell>
+                            </StackLayout>
+                        </Frame>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </VerticalStackLayout>
     </ScrollView>
