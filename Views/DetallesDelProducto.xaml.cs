@@ -2,6 +2,8 @@ using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.Helpers;
 using Microsoft.Maui.Controls;
+using System;
+using System.Collections.Generic;
 
 namespace MauiAppGestorMovil.Views
 {
@@ -12,9 +14,10 @@ namespace MauiAppGestorMovil.Views
             InitializeComponent();
 
             var repoCategorias = new RepositorioCategorias();
-            var rutaCompleta = CategoriaHelper.ObtenerRutaCategoriaCompleta(producto.IdCategoria, repoCategorias);
+            var rutaCategoria = CategoriaHelper.ObtenerRutaCategoriaCompleta(producto.IdCategoria, repoCategorias);
+            var propiedadesFormateadas = FormatearPropiedades(producto.PropiedadesEspecificas);
 
-            // Usamos un ViewModel anónimo para binding (o crear un DTO si quieres)
+            // ViewModel anónimo con todos los campos necesarios
             var vm = new
             {
                 producto.Id,
@@ -23,14 +26,31 @@ namespace MauiAppGestorMovil.Views
                 producto.Precio,
                 producto.Stock,
                 producto.IdCategoria,
-                producto.CategoriaNombre,
-                CategoriaNombreCompleta = rutaCompleta
+                CategoriaNombreCompleta = rutaCategoria,
+                PropiedadesFormateadas = propiedadesFormateadas
             };
 
             BindingContext = vm;
         }
 
-        private async void BtnCerrar_Clicked(object sender, System.EventArgs e)
+        /// <summary>
+        /// Convierte el diccionario de propiedades específicas en una cadena tipo: "Marca: Dell, Color: Negro"
+        /// </summary>
+        private string FormatearPropiedades(Dictionary<string, string> propiedades)
+        {
+            if (propiedades == null || propiedades.Count == 0)
+                return "N/A";
+
+            List<string> partes = new();
+            foreach (var kvp in propiedades)
+            {
+                partes.Add($"{kvp.Key}: {kvp.Value}");
+            }
+
+            return string.Join(", ", partes);
+        }
+
+        private async void BtnCerrar_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
