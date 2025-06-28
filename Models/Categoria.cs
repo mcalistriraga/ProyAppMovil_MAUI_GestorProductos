@@ -27,5 +27,7 @@
         /// Ejemplo: ["Marca", "Garantía", "Color"]
         /// </summary>
         public List<string> Propiedades { get; set; } = new();
+
+
     }
 }

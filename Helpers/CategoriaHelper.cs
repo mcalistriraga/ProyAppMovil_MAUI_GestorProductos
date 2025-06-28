@@ -8,7 +8,7 @@ namespace MauiAppGestorMovil.Helpers
     {
         public static string ObtenerRutaCategoriaCompleta(int idCategoria, RepositorioCategorias repoCategorias)
         {
-            List<string> nombres = new List<string>();
+            var nombres = new List<string>();
             var categoria = repoCategorias.BuscarPorId(idCategoria);
 
             while (categoria != null)
