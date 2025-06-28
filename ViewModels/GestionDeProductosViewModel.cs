@@ -4,6 +4,7 @@ using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Maui.ApplicationModel; // necesario para MainThread
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -23,8 +24,8 @@ namespace MauiAppGestorMovil.ViewModels
 
         private int proximoId = 1;
 
-        private RepositorioProductos repositorioProductos;
-        private RepositorioCategorias repositorioCategorias;
+        private readonly RepositorioProductos repositorioProductos;
+        private readonly RepositorioCategorias repositorioCategorias;
 
         public GestionDeProductosViewModel()
         {
@@ -77,18 +78,29 @@ namespace MauiAppGestorMovil.ViewModels
 
             if (MostrarMensaje != null)
             {
-                await MostrarMensaje.Invoke("Producto Agregado", $"Producto '{nuevoProducto.Nombre}' agregado.");
+                await MostrarMensaje("Producto Agregado", $"Producto '{nuevoProducto.Nombre}' agregado.");
             }
         }
 
         private async void VerProducto(Producto producto)
         {
-            await Application.Current!.MainPage!.Navigation!.PushAsync(new Views.DetallesDelProducto(producto));
+            var mainPage = Application.Current?.MainPage;
+            if (mainPage == null)
+                return;
+
+            await mainPage.Navigation.PushAsync(new Views.DetallesDelProducto(producto));
         }
 
-        private void EditarProducto(Producto producto)
+        private async void EditarProducto(Producto producto)
         {
-            MostrarMensaje?.Invoke("Editar", $"Editar producto '{producto.Nombre}' en desarrollo.");
+            if (producto == null)
+                return;
+
+            var mainPage = Application.Current?.MainPage;
+            if (mainPage == null)
+                return;
+
+            await mainPage.Navigation.PushAsync(new Views.EditarProducto(producto));
         }
 
         private async void EliminarProducto(Producto producto)
@@ -96,7 +108,11 @@ namespace MauiAppGestorMovil.ViewModels
             if (producto == null)
                 return;
 
-            bool confirmado = await Application.Current.MainPage.DisplayAlert(
+            var mainPage = Application.Current?.MainPage;
+            if (mainPage == null)
+                return;
+
+            bool confirmado = await mainPage.DisplayAlert(
                 "Confirmar eliminación",
                 $"¿Deseas eliminar el producto:\n\n'{producto.Nombre}'?",
                 "Sí", "Cancelar");
@@ -126,13 +142,15 @@ namespace MauiAppGestorMovil.ViewModels
                 });
 
                 // 4. Mostrar mensaje de éxito
-                await MostrarMensaje?.Invoke("Producto eliminado", $"'{producto.Nombre}' fue eliminado correctamente.");
+                if (MostrarMensaje != null)
+                {
+                    await MostrarMensaje("Producto eliminado", $"'{producto.Nombre}' fue eliminado correctamente.");
+                }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", $"Ocurrió un error al eliminar:\n{ex.Message}", "OK");
+                await mainPage.DisplayAlert("Error", $"Ocurrió un error al eliminar:\n{ex.Message}", "OK");
             }
         }
-       
     }
 }

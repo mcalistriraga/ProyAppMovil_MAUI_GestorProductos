@@ -36,7 +36,7 @@ namespace MauiAppGestorMovil.Views
         /// <summary>
         /// Convierte el diccionario de propiedades específicas en una cadena tipo: "Marca: Dell, Color: Negro"
         /// </summary>
-        private string FormatearPropiedades(Dictionary<string, string> propiedades)
+        private static string FormatearPropiedades(Dictionary<string, string> propiedades)
         {
             if (propiedades == null || propiedades.Count == 0)
                 return "N/A";
