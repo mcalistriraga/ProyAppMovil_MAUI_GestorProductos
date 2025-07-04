@@ -31,8 +31,8 @@ namespace MauiAppGestorMovil.ViewModels
                 {
                     Title = "Categorías",
                     ButtonColor = Color.FromArgb("#2196F3"),
-                    Command = new Command(() =>
-                        Application.Current!.MainPage!.DisplayAlert("Categorías", "Función Categorías en desarrollo", "OK"))
+                    Command = new Command(async () =>
+                        await Application.Current!.MainPage!.Navigation!.PushAsync(new Views.GestionDeCategorias()))
                 },
                 new DashboardOption
                 {
