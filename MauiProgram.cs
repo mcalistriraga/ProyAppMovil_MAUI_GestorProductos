@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace MauiAppGestorMovil
 {
@@ -7,9 +8,10 @@ namespace MauiAppGestorMovil
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            
+
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit() // <-- Registro del toolkit
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

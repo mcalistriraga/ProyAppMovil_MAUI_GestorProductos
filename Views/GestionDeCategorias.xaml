@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
+    xmlns:controls="clr-namespace:MauiAppGestorMovil.Controls"
+    xmlns:vm="clr-namespace:MauiAppGestorMovil.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"  
+    x:Class="MauiAppGestorMovil.Views.GestionDeCategorias"
+    Title="Gestión de Categorías"
+    BackgroundColor="#849DE0">
+
+    <ContentPage.BindingContext>
+        <vm:GestionDeCategoriasViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Encabezado estándar -->
+            <views:EncabezadoEmpresa TituloPagina="Gestión de Categorías..." />
+
+            <!-- Botón Agregar Categoría -->
+            <Frame CornerRadius="10"
+                   BackgroundColor="#5679EA"
+                   HasShadow="True"
+                   Padding="0"
+                   HeightRequest="37"
+                   WidthRequest="190"
+                   Margin="160,0,0,0"
+                   HorizontalOptions="Start">
+                <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                    <Button Text="+ Agregar Categoría"
+                            BackgroundColor="#5679EA"
+                            TextColor="White"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            FontFamily="Inter"
+                            CornerRadius="10"
+                            Padding="0"
+                            Command="{Binding AgregarCategoriaCommand}" />
+                </Grid>
+            </Frame>
+
+            <!-- Lista jerárquica de categorías -->
+            <CollectionView ItemsSource="{Binding CategoriasJerarquicas}"
+                            BackgroundColor="Transparent"
+                            SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10"
+                               Padding="10"
+                               Margin="0,4"
+                               BackgroundColor="#E1E8FB"
+                               HasShadow="True">
+                            <VerticalStackLayout>
+
+                                <HorizontalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                    <Label Text="{Binding Categoria.Nombre}"
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand" />
+
+                                    <Button Text="+ Subcategoría"
+                                            FontSize="13"
+                                            CornerRadius="8"
+                                            BackgroundColor="#5779EA"
+                                            TextColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                            CommandParameter="{Binding}" />
+
+                                    <Button Text="Editar"
+                                            FontSize="13"
+                                            CornerRadius="8"
+                                            BackgroundColor="#2E75B6"
+                                            TextColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.EditarCategoriaCommand}"
+                                            CommandParameter="{Binding}" />
+
+                                    <Button Text="Eliminar"
+                                            FontSize="13"
+                                            CornerRadius="8"
+                                            BackgroundColor="#B63636"
+                                            TextColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.EliminarCategoriaCommand}"
+                                            CommandParameter="{Binding}" />
+                                </HorizontalStackLayout>
+
+                                <!-- Cambiado a toolkit:Expander -->
+                                <toolkit:Expander>
+                                    <toolkit:Expander.Header>
+                                        <Label Text="Subcategorías"
+                                               FontAttributes="Italic"
+                                               FontSize="14"
+                                               TextColor="Gray" />
+                                    </toolkit:Expander.Header>
+
+                                    <toolkit:Expander.Content>
+                                        <CollectionView ItemsSource="{Binding Subcategorias}"
+                                                        BackgroundColor="Transparent"
+                                                        SelectionMode="None">
+
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <!-- Se repite la estructura (sin Expander para evitar anidación muy profunda) -->
+                                                    <Frame CornerRadius="10"
+                                                           Padding="8"
+                                                           Margin="5,3"
+                                                           BackgroundColor="#DCE4F7"
+                                                           HasShadow="False">
+
+                                                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+
+                                                            <Label Text="{Binding Categoria.Nombre}"
+                                                                   FontAttributes="Bold"
+                                                                   FontSize="16"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalOptions="StartAndExpand" />
+
+                                                            <Button Text="+ Subcategoría"
+                                                                    FontSize="12"
+                                                                    CornerRadius="8"
+                                                                    BackgroundColor="#5779EA"
+                                                                    TextColor="White"
+                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                                                    CommandParameter="{Binding}" />
+
+                                                            <Button Text="Editar"
+                                                                    FontSize="12"
+                                                                    CornerRadius="8"
+                                                                    BackgroundColor="#2E75B6"
+                                                                    TextColor="White"
+                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.EditarCategoriaCommand}"
+                                                                    CommandParameter="{Binding}" />
+
+                                                            <Button Text="Eliminar"
+                                                                    FontSize="12"
+                                                                    CornerRadius="8"
+                                                                    BackgroundColor="#B63636"
+                                                                    TextColor="White"
+                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.EliminarCategoriaCommand}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </HorizontalStackLayout>
+
+                                                    </Frame>
+
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+
+                                        </CollectionView>
+                                    </toolkit:Expander.Content>
+                                </toolkit:Expander>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
