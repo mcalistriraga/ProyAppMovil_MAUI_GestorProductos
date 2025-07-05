@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
              xmlns:converters="clr-namespace:MauiAppGestorMovil.Converters"
+             xmlns:controls="clr-namespace:MauiAppGestorMovil.Controls"
              x:Class="MauiAppGestorMovil.Views.GestionDeCategorias"
              BackgroundColor="#849EDE">
 
@@ -58,7 +59,8 @@
                                     <!-- Encabezado con nombre y botones -->
                                     <Grid ColumnDefinitions="*, Auto, Auto, Auto"
                                           VerticalOptions="Center"
-                                          Padding="0">
+                                          Padding="0" >
+
                                         <!-- Nombre de la categoría -->
                                         <Label Grid.Column="0"
                                                Text="{Binding Categoria.Nombre}"
@@ -67,17 +69,18 @@
                                                VerticalOptions="Center"
                                                TextColor="Black"/>
 
-                                        <!-- Botón +Sub -->
-                                        <Button Grid.Column="1"
-                                                Text="+ Sub"
-                                                BackgroundColor="#5779EA"
-                                                TextColor="White"
-                                                FontSize="12"
-                                                HeightRequest="30"
-                                                WidthRequest="60"
-                                                CornerRadius="5"
-                                                Clicked="AgregarSubcategoria_Clicked"
-                                                CommandParameter="{Binding .}"/>
+                                        <!-- Botón +Sub personalizado -->
+                                        <controls:BotonPersonalizado
+                                            Grid.Column="1"
+                                            Texto="+Sub"
+                                            ColorFondo="#5779EA"
+                                            TextColor="White"
+                                            Ancho="70"
+                                            Alto="32"
+                                            TamanoLetra="14"
+                                            CornerRadiusPersonalizado="10"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                            CommandParameter="{Binding .}" />
 
                                         <!-- Icono editar -->
                                         <ImageButton Grid.Column="2"

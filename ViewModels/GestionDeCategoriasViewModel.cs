@@ -3,6 +3,7 @@ using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.ViewModels.Helpers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -12,10 +13,15 @@ namespace MauiAppGestorMovil.ViewModels
 
         public ObservableCollection<CategoriaNodo> CategoriasJerarquicas { get; set; } = new();
 
+        // Comando para agregar subcategoría
+        public ICommand AgregarSubcategoriaCommand { get; }
+
         public GestionDeCategoriasViewModel(RepositorioCategorias repo)
         {
             _repoCategorias = repo;
             ConstruirJerarquiaDeCategorias();
+
+            AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoria);
         }
 
         private void ConstruirJerarquiaDeCategorias()
@@ -49,6 +55,21 @@ namespace MauiAppGestorMovil.ViewModels
         public void Recargar()
         {
             ConstruirJerarquiaDeCategorias();
+        }
+
+        private void AgregarSubcategoria(CategoriaNodo categoriaPadre)
+        {
+            if (categoriaPadre == null)
+                return;
+
+            // Aquí puedes abrir la página para agregar subcategoría,
+            // pasar la categoríaPadre como parámetro,
+            // o agregar lógica para crear la subcategoría directamente.
+
+            // Por ejemplo, lanzar un mensaje por ahora:
+            System.Diagnostics.Debug.WriteLine($"Agregar subcategoría para: {categoriaPadre.Categoria.Nombre}");
+
+            // Luego, se debería implementar navegación o diálogo para agregar la subcategoría.
         }
     }
 }
