@@ -105,5 +105,13 @@ namespace MauiAppGestorMovil.Repositories
         {
             return repoProductos.BuscarPorCategoriaId(idCategoria).Count > 0;
         }
+
+        /// <summary>
+        /// Genera un nuevo Id único para una nueva categoría.
+        /// </summary>
+        public int GenerarNuevoId()
+        {
+            return categorias.Any() ? categorias.Max(c => c.Id) + 1 : 1;
+        }
     }
 }

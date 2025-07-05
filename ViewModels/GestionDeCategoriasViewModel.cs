@@ -2,7 +2,6 @@
 using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.ViewModels.Helpers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace MauiAppGestorMovil.ViewModels
@@ -13,9 +12,9 @@ namespace MauiAppGestorMovil.ViewModels
 
         public ObservableCollection<CategoriaNodo> CategoriasJerarquicas { get; set; } = new();
 
-        public GestionDeCategoriasViewModel()
+        public GestionDeCategoriasViewModel(RepositorioCategorias repo)
         {
-            _repoCategorias = new RepositorioCategorias();
+            _repoCategorias = repo;
             ConstruirJerarquiaDeCategorias();
         }
 
@@ -37,14 +36,19 @@ namespace MauiAppGestorMovil.ViewModels
             {
                 if (nodo.Categoria.IdPadre == null)
                 {
-                    // Es raíz
+                    // Categoría raíz
                     CategoriasJerarquicas.Add(nodo);
                 }
-                else if (mapaNodos.TryGetValue(nodo.Categoria.IdPadre.Value, out var padre) && padre != null)
+                else if (mapaNodos.TryGetValue(nodo.Categoria.IdPadre.Value, out var padre))
                 {
                     padre.Subcategorias.Add(nodo);
                 }
             }
+        }
+
+        public void Recargar()
+        {
+            ConstruirJerarquiaDeCategorias();
         }
     }
 }

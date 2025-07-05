@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiAppGestorMovil.Views.GestionDeCategorias"
              xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
-             BackgroundColor="#849EDE"
-             Title="Gestión de Categorías">
+             xmlns:converters="clr-namespace:MauiAppGestorMovil.Converters"
+             x:Class="MauiAppGestorMovil.Views.GestionDeCategorias"
+             BackgroundColor="#849EDE">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
@@ -12,83 +18,103 @@
             <!-- Encabezado reutilizable -->
             <views:EncabezadoEmpresa TituloPagina="Gestión de Categorías" />
 
-            <!-- Título -->
-            <Label Text="Categorías disponibles"
-                   FontSize="18"
-                   FontAttributes="Bold"
-                   FontFamily="Inter"
-                   TextColor="White" />
+            <!-- Botón Agregar Categoría -->
+            <Frame BackgroundColor="#5779EA"
+                   CornerRadius="10"
+                   Padding="5"
+                   HasShadow="True"
+                   HeightRequest="40"
+                   WidthRequest="200"
+                   HorizontalOptions="Start">
+                <Grid>
+                    <Button Text="+ Agregar Categoría"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontFamily="Inter"
+                            FontAttributes="Bold"
+                            Clicked="AgregarCategoria_Clicked"/>
+                </Grid>
+            </Frame>
 
-            <!-- Lista de categorías jerárquicas -->
-            <CollectionView ItemsSource="{Binding CategoriasJerarquicas}">
+            <!-- Lista de Categorías -->
+            <CollectionView x:Name="CategoriasCollection"
+                            ItemsSource="{Binding CategoriasJerarquicas}"
+                            SelectionMode="None">
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#5A7DC5"
-                               CornerRadius="10"
-                               Padding="10"
-                               Margin="5">
-                            <Grid ColumnDefinitions="*,Auto"
-                                  RowDefinitions="Auto,Auto">
+                        <StackLayout Spacing="10">
 
-                                <!-- Nombre de categoría -->
-                                <Label Text="{Binding Categoria.Nombre}"
-                                       FontFamily="Inter"
-                                       FontSize="16"
-                                       TextColor="White"
-                                       Grid.Row="0"
-                                       Grid.Column="0"
-                                       VerticalOptions="Center" />
+                            <!-- Contenedor de categoría -->
+                            <Frame BackgroundColor="#E1E8FB"
+                                   CornerRadius="10"
+                                   Padding="10"
+                                   HasShadow="True">
 
-                                <!-- Botones de acción -->
-                                <HorizontalStackLayout Spacing="10"
-                                                       Grid.Row="0"
-                                                       Grid.Column="1"
-                                                       HorizontalOptions="End">
+                                <Grid ColumnDefinitions="*, Auto, Auto, Auto"
+                                      VerticalOptions="Center"
+                                      Padding="0">
 
-                                    <!-- Botón: Agregar Subcategoría -->
-                                    <Button Text="+Sub"
-                                            FontSize="12"
-                                            Padding="4"
-                                            BackgroundColor="#33C2FF"
+                                    <!-- Nombre de la categoría -->
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Categoria.Nombre}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           TextColor="Black"/>
+
+                                    <!-- Botón +Sub -->
+                                    <Button Grid.Column="1"
+                                            Text="+ Sub"
+                                            BackgroundColor="#5779EA"
                                             TextColor="White"
+                                            FontSize="12"
+                                            HeightRequest="30"
+                                            WidthRequest="60"
+                                            CornerRadius="5"
                                             Clicked="AgregarSubcategoria_Clicked"
-                                            />
+                                            CommandParameter="{Binding .}"/>
 
-                                    <!-- Botón: Editar -->
-                                    <ImageButton Source="iconoeditar_01.png"
-                                                 WidthRequest="28"
-                                                 HeightRequest="28"
+                                    <!-- Icono editar -->
+                                    <ImageButton Grid.Column="2"
+                                                 Source="iconoeditar_01.png"
+                                                 WidthRequest="25"
+                                                 HeightRequest="25"
                                                  BackgroundColor="Transparent"
                                                  Clicked="EditarCategoria_Clicked"
-                                                 SemanticProperties.Hint="Editar categoría" />
+                                                 CommandParameter="{Binding .}"/>
 
-                                    <!-- Botón: Eliminar -->
-                                    <ImageButton Source="iconoeliminar_01.png"
-                                                 WidthRequest="28"
-                                                 HeightRequest="28"
+                                    <!-- Icono eliminar -->
+                                    <ImageButton Grid.Column="3"
+                                                 Source="iconoeliminar_01.png"
+                                                 WidthRequest="25"
+                                                 HeightRequest="25"
                                                  BackgroundColor="Transparent"
                                                  Clicked="EliminarCategoria_Clicked"
-                                                 SemanticProperties.Hint="Eliminar categoría" />
-                                </HorizontalStackLayout>
+                                                 CommandParameter="{Binding .}"/>
+                                </Grid>
 
-                                <!-- Subcategorías -->
-                                <CollectionView ItemsSource="{Binding Subcategorias}"
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                Margin="10,5,0,0">
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Label Text="↳ {Binding Categoria.Nombre}"
-                                                   FontFamily="Inter"
-                                                   FontSize="14"
-                                                   TextColor="White"
-                                                   Margin="10,2" />
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                                <!-- Subcategorías si existen -->
+                                <StackLayout Padding="10,5,0,0" Spacing="5"
+                                             IsVisible="{Binding Subcategorias.Count, Converter={StaticResource IntToBoolConverter}}">
+                                    <Label Text="Subcategorías:"
+                                           FontSize="13"
+                                           TextColor="Gray"
+                                           FontAttributes="Italic"/>
+                                    <CollectionView ItemsSource="{Binding Subcategorias}"
+                                                    SelectionMode="None">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label Text="{Binding Categoria.Nombre}"
+                                                       FontSize="14"
+                                                       TextColor="#444444"/>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
 
-                            </Grid>
-                        </Frame>
+                            </Frame>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
