@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views.Controls"
+             xmlns:converters="clr-namespace:MauiAppGestorMovil.Converters"
+             xmlns:controls="clr-namespace:MauiAppGestorMovil.Controls"
+             x:Class="MauiAppGestorMovil.Views.Controls.CategoriaItemView">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+            <converters:BoolToFlechaConverter x:Key="BoolToFlechaConverter" />
+            <converters:IntToThicknessConverter x:Key="IntToThicknessConverter" />
+            <converters:IntIncrementConverter x:Key="IntIncrementConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout Spacing="5" Padding="{Binding PaddingLeftExtra, Converter={StaticResource IntToThicknessConverter}}">
+
+        <!-- Contenedor categoría principal -->
+        <Frame BackgroundColor="#E1E8FB"
+               CornerRadius="10"
+               Padding="10"
+               HasShadow="True">
+
+            <VerticalStackLayout>
+                <Grid ColumnDefinitions="*, Auto, Auto, Auto"
+                      VerticalOptions="Center"
+                      Padding="0" >
+
+                    <!-- Nombre categoría -->
+                    <Label Grid.Column="0"
+                           Text="{Binding Categoria.Nombre}"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
+
+                    <!-- Botón +Sub -->
+                    <controls:BotonPersonalizado
+                        Grid.Column="1"
+                        Texto="+Sub"
+                        ColorFondo="#5779EA"
+                        TextColor="White"
+                        Ancho="65"
+                        Alto="32"
+                        TamanoLetra="14"
+                        CornerRadiusPersonalizado="10"
+                        Command="{Binding AgregarSubcategoriaCommand}"
+                        CommandParameter="{Binding .}" />
+
+                    <!-- Icono editar -->
+                    <ImageButton Grid.Column="2"
+                                 Source="iconoeditar_01.png"
+                                 WidthRequest="25"
+                                 HeightRequest="25"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding EditarCategoriaCommand}"
+                                 CommandParameter="{Binding .}"/>
+
+                    <!-- Icono eliminar -->
+                    <ImageButton Grid.Column="3"
+                                 Source="iconoeliminar_01.png"
+                                 WidthRequest="25"
+                                 HeightRequest="25"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding EliminarCategoriaCommand}"
+                                 CommandParameter="{Binding .}"/>
+                </Grid>
+
+                <!-- Subcategorías (si existen) -->
+                <StackLayout Padding="10,5,0,0" Spacing="5"
+                             IsVisible="{Binding Subcategorias.Count, Converter={StaticResource IntToBoolConverter}}">
+
+                    <!-- Expandir subcategorías -->
+                    <Grid ColumnDefinitions="Auto, *"
+                          VerticalOptions="Center">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleExpandCommand}" />
+                        </Grid.GestureRecognizers>
+
+                        <Label Grid.Column="0"
+                               Text="{Binding EstaExpandida, Converter={StaticResource BoolToFlechaConverter}}"
+                               FontSize="13"
+                               TextColor="#888888"
+                               VerticalOptions="Center"
+                               Padding="0,0,5,0" />
+
+                        <Label Grid.Column="1"
+                               Text="Subcategorías:"
+                               FontSize="13"
+                               FontAttributes="Italic"
+                               TextColor="#888888"
+                               VerticalOptions="Center" />
+                    </Grid>
+
+                    <!-- Recursión para subcategorías -->
+                    <CollectionView ItemsSource="{Binding Subcategorias}"
+                                    IsVisible="{Binding EstaExpandida}"
+                                    SelectionMode="None"
+                                    Margin="10,0,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <views:CategoriaItemView PaddingLeftExtra="{Binding Source={RelativeSource AncestorType={x:Type views:CategoriaItemView}}, Path=PaddingLeftExtra, Converter={StaticResource IntIncrementConverter}}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </VerticalStackLayout>
+        </Frame>
+    </StackLayout>
+</ContentView>

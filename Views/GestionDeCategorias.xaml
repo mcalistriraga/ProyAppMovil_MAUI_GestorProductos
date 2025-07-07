@@ -50,6 +50,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Spacing="10">
+
                             <!-- Contenedor de categoría -->
                             <Frame BackgroundColor="#E1E8FB"
                                    CornerRadius="10"
@@ -57,10 +58,11 @@
                                    HasShadow="True">
 
                                 <VerticalStackLayout>
+
                                     <!-- Encabezado con nombre y botones -->
                                     <Grid ColumnDefinitions="*, Auto, Auto, Auto"
                                           VerticalOptions="Center"
-                                          Padding="0" >
+                                          Padding="0">
 
                                         <!-- Nombre de la categoría -->
                                         <Label Grid.Column="0"
@@ -68,7 +70,7 @@
                                                FontSize="16"
                                                FontAttributes="Bold"
                                                VerticalOptions="Center"
-                                               TextColor="Black"/>
+                                               TextColor="Black" />
 
                                         <!-- Botón +Sub personalizado -->
                                         <controls:BotonPersonalizado
@@ -90,7 +92,7 @@
                                                      HeightRequest="25"
                                                      BackgroundColor="Transparent"
                                                      Clicked="EditarCategoria_Clicked"
-                                                     CommandParameter="{Binding .}"/>
+                                                     CommandParameter="{Binding .}" />
 
                                         <!-- Icono eliminar -->
                                         <ImageButton Grid.Column="3"
@@ -99,11 +101,12 @@
                                                      HeightRequest="25"
                                                      BackgroundColor="Transparent"
                                                      Clicked="EliminarCategoria_Clicked"
-                                                     CommandParameter="{Binding .}"/>
+                                                     CommandParameter="{Binding .}" />
                                     </Grid>
 
                                     <!-- Subcategorías (solo si existen) -->
-                                    <StackLayout Padding="10,5,0,0" Spacing="5"
+                                    <StackLayout Padding="10,5,0,0"
+                                                 Spacing="5"
                                                  IsVisible="{Binding Subcategorias.Count, Converter={StaticResource IntToBoolConverter}}">
 
                                         <!-- Encabezado expandible -->
@@ -138,9 +141,43 @@
                                                         Margin="10,0,0,0">
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Label Text="{Binding Categoria.Nombre}"
-                                                           FontSize="14"
-                                                           TextColor="#444444"/>
+                                                    <!-- Aquí podrías usar un control ContentView reutilizable para subcategoría -->
+                                                    <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
+
+                                                        <!-- Nombre Subcategoría -->
+                                                        <Label Text="{Binding Categoria.Nombre}"
+                                                               FontSize="14"
+                                                               TextColor="#444444"
+                                                               VerticalOptions="Center" />
+
+                                                        <!-- Botón +Sub subcategoría -->
+                                                        <controls:BotonPersonalizado
+                                                            Texto="+Sub"
+                                                            ColorFondo="#5779EA"
+                                                            TextColor="White"
+                                                            Ancho="85"
+                                                            Alto="28"
+                                                            TamanoLetra="13"
+                                                            CornerRadiusPersonalizado="10"
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                                            CommandParameter="{Binding .}" />
+
+                                                        <!-- Icono editar -->
+                                                        <ImageButton Source="iconoeditar_01.png"
+                                                                     WidthRequest="22"
+                                                                     HeightRequest="22"
+                                                                     BackgroundColor="Transparent"
+                                                                     Clicked="EditarCategoria_Clicked"
+                                                                     CommandParameter="{Binding .}" />
+
+                                                        <!-- Icono eliminar -->
+                                                        <ImageButton Source="iconoeliminar_01.png"
+                                                                     WidthRequest="22"
+                                                                     HeightRequest="22"
+                                                                     BackgroundColor="Transparent"
+                                                                     Clicked="EliminarCategoria_Clicked"
+                                                                     CommandParameter="{Binding .}" />
+                                                    </StackLayout>
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
@@ -148,6 +185,7 @@
 
                                 </VerticalStackLayout>
                             </Frame>
+
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

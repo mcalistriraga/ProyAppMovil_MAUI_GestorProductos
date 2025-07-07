@@ -85,6 +85,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Views\Controls\CategoriaItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\DetallesDelProducto.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
