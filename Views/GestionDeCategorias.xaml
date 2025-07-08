@@ -72,18 +72,14 @@
                                                VerticalOptions="Center"
                                                TextColor="Black" />
 
-                                        <!-- Botón +Sub personalizado -->
-                                        <controls:BotonPersonalizado
-                                            Grid.Column="1"
-                                            Texto="+Sub"
-                                            ColorFondo="#5779EA"
-                                            TextColor="White"
-                                            Ancho="65"
-                                            Alto="32"
-                                            TamanoLetra="14"
-                                            CornerRadiusPersonalizado="10"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
-                                            CommandParameter="{Binding .}" />
+                                        <!-- Icono +Sub -->
+                                        <ImageButton Grid.Column="1"
+                                                     Source="iconosub_01.png"
+                                                     WidthRequest="50"
+                                                     HeightRequest="50"
+                                                     BackgroundColor="Transparent"
+                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                                     CommandParameter="{Binding .}" />
 
                                         <!-- Icono editar -->
                                         <ImageButton Grid.Column="2"
@@ -141,43 +137,45 @@
                                                         Margin="10,0,0,0">
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <!-- Aquí podrías usar un control ContentView reutilizable para subcategoría -->
-                                                    <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
+                                                    <!-- Cambio aquí para alinear iconos a la derecha -->
+                                                    <Grid ColumnDefinitions="*, Auto, Auto, Auto"
+                                                          VerticalOptions="Center"
+                                                          Padding="5,0">
 
                                                         <!-- Nombre Subcategoría -->
-                                                        <Label Text="{Binding Categoria.Nombre}"
+                                                        <Label Grid.Column="0"
+                                                               Text="{Binding Categoria.Nombre}"
                                                                FontSize="14"
                                                                TextColor="#444444"
                                                                VerticalOptions="Center" />
 
-                                                        <!-- Botón +Sub subcategoría -->
-                                                        <controls:BotonPersonalizado
-                                                            Texto="+Sub"
-                                                            ColorFondo="#5779EA"
-                                                            TextColor="White"
-                                                            Ancho="85"
-                                                            Alto="28"
-                                                            TamanoLetra="13"
-                                                            CornerRadiusPersonalizado="10"
-                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
-                                                            CommandParameter="{Binding .}" />
+                                                        <!-- Icono +Sub para subcategoría -->
+                                                        <ImageButton Grid.Column="1"
+                                                                     Source="iconosub_01.png"
+                                                                     WidthRequest="50"
+                                                                     HeightRequest="50"
+                                                                     BackgroundColor="Transparent"
+                                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeCategorias}}, Path=BindingContext.AgregarSubcategoriaCommand}"
+                                                                     CommandParameter="{Binding .}" />
 
                                                         <!-- Icono editar -->
-                                                        <ImageButton Source="iconoeditar_01.png"
-                                                                     WidthRequest="22"
-                                                                     HeightRequest="22"
+                                                        <ImageButton Grid.Column="2"
+                                                                     Source="iconoeditar_01.png"
+                                                                     WidthRequest="25"
+                                                                     HeightRequest="25"
                                                                      BackgroundColor="Transparent"
                                                                      Clicked="EditarCategoria_Clicked"
                                                                      CommandParameter="{Binding .}" />
 
                                                         <!-- Icono eliminar -->
-                                                        <ImageButton Source="iconoeliminar_01.png"
-                                                                     WidthRequest="22"
-                                                                     HeightRequest="22"
+                                                        <ImageButton Grid.Column="3"
+                                                                     Source="iconoeliminar_01.png"
+                                                                     WidthRequest="25"
+                                                                     HeightRequest="25"
                                                                      BackgroundColor="Transparent"
                                                                      Clicked="EliminarCategoria_Clicked"
                                                                      CommandParameter="{Binding .}" />
-                                                    </StackLayout>
+                                                    </Grid>
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
