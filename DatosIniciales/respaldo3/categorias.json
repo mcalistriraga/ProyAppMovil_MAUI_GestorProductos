@@ -1,0 +1,56 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Electrónica",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Garantía"]
+  },
+  {
+    "Id": 2,
+    "Nombre": "Laptops",
+    "IdPadre": 1,
+    "Propiedades": ["Marca", "Garantía", "Pantalla", "Peso"]
+  },
+  {
+    "Id": 3,
+    "Nombre": "Teléfonos",
+    "IdPadre": 1,
+    "Propiedades": ["Marca", "Garantía", "Color"]
+  },
+  {
+    "Id": 4,
+    "Nombre": "Hogar",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Garantía"]
+  },
+  {
+    "Id": 5,
+    "Nombre": "Cocina",
+    "IdPadre": 4,
+    "Propiedades": ["Material", "Color"]
+  },
+  {
+    "Id": 6,
+    "Nombre": "Instrumentos",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Tipo"]
+  },
+  {
+    "Id": 7,
+    "Nombre": "Cuerdas",
+    "IdPadre": 6,
+    "Propiedades": ["Material", "Número de cuerdas"]
+  },
+  {
+   "Id": 8,
+    "Nombre": "Guitarras",
+    "IdPadre": 7,
+    "Propiedades": ["Tipo", "Color"]
+  },
+  {
+    "Id": 9,
+    "Nombre": "Eléctricas",
+    "IdPadre": 8,
+    "Propiedades": ["Pastillas", "Peso"]
+  }
+]

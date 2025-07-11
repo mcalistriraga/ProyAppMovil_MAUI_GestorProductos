@@ -1,0 +1,65 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Laptop Lenovo",
+    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD",
+    "IdCategoria": 2,
+    "Precio": 999.99,
+    "Stock": 20,
+    "PropiedadesEspecificas": {
+      "Marca": "Lenovo",
+      "Garantía": "1 año",
+      "Pantalla": "15.6 pulgadas",
+      "Peso": "2.2 kg"
+    }
+  },
+  {
+    "Id": 2,
+    "Nombre": "iPhone 14",
+    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual",
+    "IdCategoria": 3,
+    "Precio": 1199.00,
+    "Stock": 15,
+    "PropiedadesEspecificas": {
+      "Marca": "Apple",
+      "Garantía": "1 año",
+      "Color": "Negro"
+    }
+  },
+  {
+    "Id": 3,
+    "Nombre": "Licuadora Oster",
+    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades",
+    "IdCategoria": 5,
+    "Precio": 89.99,
+    "Stock": 30,
+    "PropiedadesEspecificas": {
+      "Material": "Vidrio",
+      "Color": "Blanco"
+    }
+  },
+  {
+    "Id": 4,
+    "Nombre": "Televisor Samsung 50\"",
+    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz",
+    "IdCategoria": 1,
+    "Precio": 499.00,
+    "Stock": 10,
+    "PropiedadesEspecificas": {
+      "Marca": "Samsung",
+      "Garantía": "2 años"
+    }
+  },
+  {
+    "Id": 5,
+    "Nombre": "Aspiradora Robot Xiaomi",
+    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática",
+    "IdCategoria": 4,
+    "Precio": 299.50,
+    "Stock": 8,
+    "PropiedadesEspecificas": {
+      "Marca": "Xiaomi",
+      "Garantía": "1 año"
+    }
+  }
+]

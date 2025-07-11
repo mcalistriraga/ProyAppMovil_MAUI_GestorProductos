@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Tecnología y Electrónica de Consumo",
+    "IdPadre": null
+  },
+  {
+    "Id": 2,
+    "Nombre": "Computadoras Portátiles y Ultrabooks",
+    "IdPadre": 1
+  },
+  {
+    "Id": 3,
+    "Nombre": "Ultrabooks Premium para Profesionales",
+    "IdPadre": 2
+  },
+  {
+    "Id": 4,
+    "Nombre": "Accesorios Esenciales para Ultrabooks",
+    "IdPadre": 3
+  },
+  {
+    "Id": 5,
+    "Nombre": "Fundas y Bolsos de Alta Protección para Laptops",
+    "IdPadre": 4
+  },
+  {
+    "Id": 6,
+    "Nombre": "Hogar y Electrodomésticos Inteligentes",
+    "IdPadre": null
+  },
+  {
+    "Id": 7,
+    "Nombre": "Cocina y Preparación de Alimentos",
+    "IdPadre": 6
+  },
+  {
+    "Id": 8,
+    "Nombre": "Pequeños Electrodomésticos Multifunción",
+    "IdPadre": 7
+  },
+  {
+    "Id": 9,
+    "Nombre": "Equipos de Limpieza Automatizados",
+    "IdPadre": 6
+  },
+  {
+    "Id": 10,
+    "Nombre": "Entretenimiento y Televisores Inteligentes",
+    "IdPadre": 1
+  },
+  {
+    "Id": 11,
+    "Nombre": "Smartphones y Dispositivos Móviles Avanzados",
+    "IdPadre": 1
+  }
+]

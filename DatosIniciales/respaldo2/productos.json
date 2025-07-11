@@ -1,0 +1,118 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Laptop Lenovo",
+    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD",
+    "IdCategoria": 2,
+    "Precio": 999.99,
+    "Stock": 20,
+    "PropiedadesEspecificas": {
+      "Marca": "Lenovo",
+      "Garantía": "1 año",
+      "Pantalla": "15.6 pulgadas",
+      "Peso": "2.2 kg"
+    }
+  },
+  {
+    "Id": 2,
+    "Nombre": "iPhone 14",
+    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual",
+    "IdCategoria": 3,
+    "Precio": 1199.00,
+    "Stock": 15,
+    "PropiedadesEspecificas": {
+      "Marca": "Apple",
+      "Garantía": "1 año",
+      "Color": "Negro"
+    }
+  },
+  {
+    "Id": 3,
+    "Nombre": "Licuadora Oster",
+    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades",
+    "IdCategoria": 5,
+    "Precio": 89.99,
+    "Stock": 30,
+    "PropiedadesEspecificas": {
+      "Material": "Vidrio",
+      "Color": "Blanco"
+    }
+  },
+  {
+    "Id": 4,
+    "Nombre": "Televisor Samsung 50\"",
+    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz",
+    "IdCategoria": 1,
+    "Precio": 499.00,
+    "Stock": 10,
+    "PropiedadesEspecificas": {
+      "Marca": "Samsung",
+      "Garantía": "2 años"
+    }
+  },
+  {
+    "Id": 5,
+    "Nombre": "Aspiradora Robot Xiaomi",
+    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática",
+    "IdCategoria": 4,
+    "Precio": 299.50,
+    "Stock": 8,
+    "PropiedadesEspecificas": {
+      "Marca": "Xiaomi",
+      "Garantía": "1 año"
+    }
+  },
+  {
+    "Id": 6,
+    "Nombre": "Guitarra Fender Stratocaster",
+    "Descripcion": "Guitarra eléctrica Fender Stratocaster con cuerpo de aliso",
+    "IdCategoria": 9,
+    "Precio": 1299.99,
+    "Stock": 5,
+    "PropiedadesEspecificas": {
+      "Marca": "Fender",
+      "Tipo": "Eléctrica",
+      "Color": "Roja",
+      "Pastillas": "Single Coil",
+      "Peso": "3.5 kg"
+    }
+  },
+  {
+    "Id": 7,
+    "Nombre": "Guitarra Yamaha Clásica",
+    "Descripcion": "Guitarra clásica Yamaha con cuerdas de nailon",
+    "IdCategoria": 8,
+    "Precio": 199.00,
+    "Stock": 12,
+    "PropiedadesEspecificas": {
+      "Marca": "Yamaha",
+      "Tipo": "Clásica",
+      "Color": "Natural"
+    }
+  },
+  {
+    "Id": 8,
+    "Nombre": "Violín Cecilio",
+    "Descripcion": "Violín de estudio tamaño 4/4 con arco de madera de Brasil",
+    "IdCategoria": 7,
+    "Precio": 179.50,
+    "Stock": 7,
+    "PropiedadesEspecificas": {
+        "Marca": "Cecilio",
+        "Material": "Arce",
+        "Número de cuerdas": "4"
+     }
+  },
+  {
+    "Id": 9,
+    "Nombre": "Trompeta Yamaha YTR-2330",
+    "Descripcion": "Trompeta ideal para estudiantes con excelente entonación",
+    "IdCategoria": 6,
+    "Precio": 399.90,
+    "Stock": 9,
+    "PropiedadesEspecificas": {
+        "Marca": "Yamaha",
+        "Tipo": "Trompeta"
+    }
+  }
+]

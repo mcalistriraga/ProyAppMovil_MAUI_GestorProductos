@@ -1,0 +1,130 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Laptop Lenovo",
+    "IdCategoria": 2,
+    "Precio": 999.99,
+    "Stock": 20,
+    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD"
+  },
+  {
+    "Id": 2,
+    "Nombre": "iPhone 14",
+    "IdCategoria": 3,
+    "Precio": 1199.00,
+    "Stock": 15,
+    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual"
+  },
+  {
+    "Id": 3,
+    "Nombre": "Licuadora Oster",
+    "IdCategoria": 5,
+    "Precio": 89.99,
+    "Stock": 30,
+    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades"
+  },
+  {
+    "Id": 4,
+    "Nombre": "Televisor Samsung 50\"",
+    "IdCategoria": 1,
+    "Precio": 499.00,
+    "Stock": 10,
+    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz"
+  },
+  {
+    "Id": 5,
+    "Nombre": "Aspiradora Robot Xiaomi",
+    "IdCategoria": 4,
+    "Precio": 299.50,
+    "Stock": 8,
+    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática"
+  },
+  {
+    "Id": 6,
+    "Nombre": "Lenovo ThinkPad X1 Carbon Ultrabook",
+    "IdCategoria": 8,
+    "Precio": 1450.00,
+    "Stock": 12,
+    "Descripcion": "Ultrabook premium para profesionales, pantalla 14'' FHD, Intel i7, 16GB RAM, 1TB SSD."
+  },
+  {
+    "Id": 7,
+    "Nombre": "Funda Ejecutiva con Protección Antigolpes",
+    "IdCategoria": 10,
+    "Precio": 59.99,
+    "Stock": 25,
+    "Descripcion": "Bolso de alta protección para laptops de hasta 15.6'', resistente al agua y golpes."
+  },
+  {
+    "Id": 8,
+    "Nombre": "Apple MacBook Pro M2",
+    "IdCategoria": 7,
+    "Precio": 2200.00,
+    "Stock": 9,
+    "Descripcion": "Computadora portátil de alto rendimiento para diseño gráfico y programación avanzada."
+  },
+  {
+    "Id": 9,
+    "Nombre": "Samsung Galaxy S24 Ultra",
+    "IdCategoria": 16,
+    "Precio": 1700.00,
+    "Stock": 7,
+    "Descripcion": "Smartphone avanzado con cámara cuádruple, pantalla AMOLED y batería de larga duración."
+  },
+  {
+    "Id": 10,
+    "Nombre": "Licuadora Multifunción con Panel Digital",
+    "IdCategoria": 13,
+    "Precio": 120.00,
+    "Stock": 18,
+    "Descripcion": "Pequeño electrodoméstico para cocina, vaso de vidrio, 6 velocidades, función turbo."
+  },
+  {
+    "Id": 11,
+    "Nombre": "Robot Aspirador Xiaomi Vacuum Pro",
+    "IdCategoria": 14,
+    "Precio": 320.00,
+    "Stock": 6,
+    "Descripcion": "Equipo de limpieza automatizado, sensor láser, gestión inteligente de habitaciones."
+  },
+  {
+    "Id": 12,
+    "Nombre": "Smart TV Samsung Neo QLED 65'' UHD",
+    "IdCategoria": 15,
+    "Precio": 1850.00,
+    "Stock": 4,
+    "Descripcion": "Televisor inteligente con HDR10+, control por voz y apps de streaming integradas."
+  },
+  {
+    "Id": 13,
+    "Nombre": "Mouse Inalámbrico Logitech MX Master 3S",
+    "IdCategoria": 9,
+    "Precio": 89.99,
+    "Stock": 27,
+    "Descripcion": "Accesorio esencial para ultrabooks, ergonomía avanzada y batería recargable."
+  },
+  {
+    "Id": 14,
+    "Nombre": "Batidora de Mano de Alta Potencia",
+    "IdCategoria": 13,
+    "Precio": 55.00,
+    "Stock": 20,
+    "Descripcion": "Pequeño electrodoméstico multifunción, ideal para preparar purés y batidos."
+  },
+  {
+    "Id": 15,
+    "Nombre": "HP Spectre x360 Convertible",
+    "IdCategoria": 7,
+    "Precio": 1800.00,
+    "Stock": 8,
+    "Descripcion": "Computadora portátil convertible, pantalla táctil 13'', diseño ultradelgado."
+  },
+  {
+    "Id": 16,
+    "Nombre": "iPhone 15 Pro Max",
+    "IdCategoria": 16,
+    "Precio": 1899.00,
+    "Stock": 5,
+    "Descripcion": "Smartphone avanzado de Apple, chip A17 Pro, cámara profesional y diseño premium."
+  }
+]
