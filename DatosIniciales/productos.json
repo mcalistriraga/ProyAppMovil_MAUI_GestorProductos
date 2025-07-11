@@ -1,65 +1,72 @@
 [
   {
     "Id": 1,
-    "Nombre": "Laptop Lenovo",
-    "Descripcion": "Laptop Lenovo con procesador Intel i7, 16GB RAM, 512GB SSD",
-    "IdCategoria": 2,
-    "Precio": 999.99,
-    "Stock": 20,
+    "Nombre": "El arte de la programación",
+    "Descripcion": "Libro técnico con ejemplos en C y algoritmos clásicos",
+    "IdCategoria": 1,
+    "Precio": 59.99,
+    "Stock": 40,
     "PropiedadesEspecificas": {
-      "Marca": "Lenovo",
-      "Garantía": "1 año",
-      "Pantalla": "15.6 pulgadas",
-      "Peso": "2.2 kg"
+      "Autor": "Donald Knuth",
+      "Editorial": "Addison‑Wesley"
     }
   },
   {
     "Id": 2,
-    "Nombre": "iPhone 14",
-    "Descripcion": "iPhone 14 con pantalla Super Retina XDR de 6.1 pulgadas y cámara dual",
+    "Nombre": "Tostadora Philips Daily",
+    "Descripcion": "Tostadora 830 W con calentamiento rápido",
     "IdCategoria": 3,
-    "Precio": 1199.00,
-    "Stock": 15,
+    "Precio": 34.50,
+    "Stock": 25,
     "PropiedadesEspecificas": {
-      "Marca": "Apple",
-      "Garantía": "1 año",
-      "Color": "Negro"
+      "Marca": "Philips",
+      "Potencia": "830 W",
+      "Color": "Blanca"
     }
   },
   {
     "Id": 3,
-    "Nombre": "Licuadora Oster",
-    "Descripcion": "Licuadora de cocina con vaso de vidrio de 1.5 litros y 3 velocidades",
-    "IdCategoria": 5,
-    "Precio": 89.99,
-    "Stock": 30,
+    "Nombre": "Taladro Bosch Professional GSB 13 RE",
+    "Descripcion": "Taladro percutor 600 W velocidad variable",
+    "IdCategoria": 6,
+    "Precio": 89.00,
+    "Stock": 18,
     "PropiedadesEspecificas": {
-      "Material": "Vidrio",
-      "Color": "Blanco"
+      "Voltaje": "220 V",
+      "Peso": "1.7 kg",
+      "Tipo": "Percutor"
     }
   },
   {
     "Id": 4,
-    "Nombre": "Televisor Samsung 50\"",
-    "Descripcion": "Smart TV Samsung 4K UHD con HDR y control por voz",
-    "IdCategoria": 1,
-    "Precio": 499.00,
-    "Stock": 10,
+    "Nombre": "Guitarra Fender Stratocaster Deluxe Olympic White",
+    "Descripcion": "Guitarra eléctrica Fender, cuerpo aliso, pastillas Noiseless",
+    "IdCategoria": 10,
+    "Precio": 1299.99,
+    "Stock": 6,
     "PropiedadesEspecificas": {
-      "Marca": "Samsung",
-      "Garantía": "2 años"
+      "Marca": "Fender",
+      "Tipo": "Eléctrica",
+      "Color": "Blanca",
+      "Pastillas": "Noiseless",
+      "Peso": "3.4 kg"
     }
   },
   {
     "Id": 5,
-    "Nombre": "Aspiradora Robot Xiaomi",
-    "Descripcion": "Robot aspirador inteligente con sensor láser y limpieza automática",
-    "IdCategoria": 4,
-    "Precio": 299.50,
-    "Stock": 8,
+    "Nombre": "AMD Ryzen Threadripper PRO 7995WX",
+    "Descripcion": "96 núcleos / 192 hilos, 350 W, socket sWRX9",
+    "IdCategoria": 15,
+    "Precio": 4999.00,
+    "Stock": 3,
     "PropiedadesEspecificas": {
-      "Marca": "Xiaomi",
-      "Garantía": "1 año"
+      "Fabricante": "AMD",
+      "Núcleos": "96",
+      "Frecuencia": "5.1 GHz",
+      "TDP": "350 W",
+      "Socket": "sWRX9",
+      "Modelo": "TR PRO 7995WX",
+      "Cache": "384 MB"
     }
   }
 ]

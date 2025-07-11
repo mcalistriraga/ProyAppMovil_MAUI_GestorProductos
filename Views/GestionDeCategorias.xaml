@@ -64,13 +64,17 @@
                                           VerticalOptions="Center"
                                           Padding="0">
 
-                                        <!-- Nombre de la categoría -->
+                                        <!-- Nombre de la categoría truncado con tap -->
                                         <Label Grid.Column="0"
-                                               Text="{Binding Categoria.Nombre}"
+                                               Text="{Binding NombreTruncado}"
                                                FontSize="16"
                                                FontAttributes="Bold"
                                                VerticalOptions="Center"
-                                               TextColor="Black" />
+                                               TextColor="Black">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding MostrarNombreCompletoCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
 
                                         <!-- Icono +Sub -->
                                         <ImageButton Grid.Column="1"
@@ -142,12 +146,16 @@
                                                           VerticalOptions="Center"
                                                           Padding="5,0">
 
-                                                        <!-- Nombre Subcategoría -->
+                                                        <!-- Nombre Subcategoría truncado con tap -->
                                                         <Label Grid.Column="0"
-                                                               Text="{Binding Categoria.Nombre}"
+                                                               Text="{Binding NombreTruncado}"
                                                                FontSize="14"
                                                                TextColor="#444444"
-                                                               VerticalOptions="Center" />
+                                                               VerticalOptions="Center">
+                                                            <Label.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding MostrarNombreCompletoCommand}" />
+                                                            </Label.GestureRecognizers>
+                                                        </Label>
 
                                                         <!-- Icono +Sub para subcategoría -->
                                                         <ImageButton Grid.Column="1"
