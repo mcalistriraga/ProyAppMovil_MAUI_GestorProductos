@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Electrónica",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Garantía"]
+  },
+  {
+    "Id": 2,
+    "Nombre": "Laptops",
+    "IdPadre": 1,
+    "Propiedades": ["Marca", "Garantía", "Pantalla", "Peso"]
+  },
+  {
+    "Id": 3,
+    "Nombre": "Teléfonos",
+    "IdPadre": 1,
+    "Propiedades": ["Marca", "Garantía", "Color"]
+  },
+  {
+    "Id": 4,
+    "Nombre": "Hogar",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Garantía"]
+  },
+  {
+    "Id": 5,
+    "Nombre": "Cocina",
+    "IdPadre": 4,
+    "Propiedades": ["Material", "Color"]
+  }
+]

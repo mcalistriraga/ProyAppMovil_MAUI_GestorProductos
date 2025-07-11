@@ -8,79 +8,90 @@
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+            <converters:IntToBoolConverter   x:Key="IntToBoolConverter"   />
             <converters:BoolToFlechaConverter x:Key="BoolToFlechaConverter" />
             <converters:IntToThicknessConverter x:Key="IntToThicknessConverter" />
-            <converters:IntIncrementConverter x:Key="IntIncrementConverter" />
+            <converters:IntIncrementConverter   x:Key="IntIncrementConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
 
-    <StackLayout Spacing="5" Padding="{Binding PaddingLeftExtra, Converter={StaticResource IntToThicknessConverter}}">
+    <!-- PaddingLeftExtra controla la sangría según el nivel -->
+    <StackLayout Spacing="5"
+                 Padding="{Binding PaddingLeftExtra,
+                                   Converter={StaticResource IntToThicknessConverter}}">
 
-        <!-- Contenedor categoría principal -->
+        <!-- Tarjeta de la categoría -->
         <Frame BackgroundColor="#E1E8FB"
                CornerRadius="10"
                Padding="10"
                HasShadow="True">
 
             <VerticalStackLayout>
-                <Grid ColumnDefinitions="*, Auto, Auto, Auto"
-                      VerticalOptions="Center"
-                      Padding="0" >
 
-                    <!-- Nombre categoría -->
+                <!-- Encabezado con nombre truncado y botones -->
+                <Grid ColumnDefinitions="*,Auto,Auto,Auto"
+                      VerticalOptions="Center">
+
+                    <!-- Nombre (truncado) con tap para mostrar completo -->
                     <Label Grid.Column="0"
-                           Text="{Binding Categoria.Nombre}"
+                           Text="{Binding NombreTruncado}"
                            FontSize="16"
                            FontAttributes="Bold"
-                           VerticalOptions="Center"
-                           TextColor="Black"/>
+                           TextColor="Black"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding MostrarNombreCompletoCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <!-- Botón +Sub -->
-                    <controls:BotonPersonalizado
-                        Grid.Column="1"
-                        Texto="+Sub"
-                        ColorFondo="#5779EA"
-                        TextColor="White"
-                        Ancho="65"
-                        Alto="32"
-                        TamanoLetra="14"
-                        CornerRadiusPersonalizado="10"
-                        Command="{Binding AgregarSubcategoriaCommand}"
-                        CommandParameter="{Binding .}" />
+                    <controls:BotonPersonalizado Grid.Column="1"
+                                                 Texto="+Sub"
+                                                 ColorFondo="#5779EA"
+                                                 TextColor="White"
+                                                 Ancho="65"
+                                                 Alto="32"
+                                                 TamanoLetra="14"
+                                                 CornerRadiusPersonalizado="10"
+                                                 Command="{Binding AgregarSubcategoriaCommand}"
+                                                 CommandParameter="{Binding .}" />
 
-                    <!-- Icono editar -->
+                    <!-- Editar -->
                     <ImageButton Grid.Column="2"
                                  Source="iconoeditar_01.png"
                                  WidthRequest="25"
                                  HeightRequest="25"
                                  BackgroundColor="Transparent"
                                  Command="{Binding EditarCategoriaCommand}"
-                                 CommandParameter="{Binding .}"/>
+                                 CommandParameter="{Binding .}" />
 
-                    <!-- Icono eliminar -->
+                    <!-- Eliminar -->
                     <ImageButton Grid.Column="3"
                                  Source="iconoeliminar_01.png"
                                  WidthRequest="25"
                                  HeightRequest="25"
                                  BackgroundColor="Transparent"
                                  Command="{Binding EliminarCategoriaCommand}"
-                                 CommandParameter="{Binding .}"/>
+                                 CommandParameter="{Binding .}" />
                 </Grid>
 
-                <!-- Subcategorías (si existen) -->
-                <StackLayout Padding="10,5,0,0" Spacing="5"
-                             IsVisible="{Binding Subcategorias.Count, Converter={StaticResource IntToBoolConverter}}">
+                <!-- Bloque de subcategorías -->
+                <StackLayout Padding="10,5,0,0"
+                             Spacing="5"
+                             IsVisible="{Binding Subcategorias.Count,
+                                                 Converter={StaticResource IntToBoolConverter}}">
 
-                    <!-- Expandir subcategorías -->
-                    <Grid ColumnDefinitions="Auto, *"
+                    <!-- Encabezado expandible -->
+                    <Grid ColumnDefinitions="Auto,*"
                           VerticalOptions="Center">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ToggleExpandCommand}" />
                         </Grid.GestureRecognizers>
 
                         <Label Grid.Column="0"
-                               Text="{Binding EstaExpandida, Converter={StaticResource BoolToFlechaConverter}}"
+                               Text="{Binding EstaExpandida,
+                                              Converter={StaticResource BoolToFlechaConverter}}"
                                FontSize="13"
                                TextColor="#888888"
                                VerticalOptions="Center"
@@ -94,18 +105,23 @@
                                VerticalOptions="Center" />
                     </Grid>
 
-                    <!-- Recursión para subcategorías -->
+                    <!-- Recursión para mostrar los hijos -->
                     <CollectionView ItemsSource="{Binding Subcategorias}"
                                     IsVisible="{Binding EstaExpandida}"
                                     SelectionMode="None"
                                     Margin="10,0,0,0">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <views:CategoriaItemView PaddingLeftExtra="{Binding Source={RelativeSource AncestorType={x:Type views:CategoriaItemView}}, Path=PaddingLeftExtra, Converter={StaticResource IntIncrementConverter}}" />
+                                <!-- Llamada recursiva -->
+                                <views:CategoriaItemView
+                                    PaddingLeftExtra="{Binding Source={RelativeSource AncestorType={x:Type views:CategoriaItemView}},
+                                                               Path=PaddingLeftExtra,
+                                                               Converter={StaticResource IntIncrementConverter}}" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </StackLayout>
+
             </VerticalStackLayout>
         </Frame>
     </StackLayout>

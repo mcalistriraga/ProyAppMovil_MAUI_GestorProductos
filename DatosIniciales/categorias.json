@@ -1,32 +1,92 @@
 [
   {
     "Id": 1,
-    "Nombre": "Electrónica",
+    "Nombre": "Libros",
+    "IdPadre": null,
+    "Propiedades": ["Autor", "Editorial"]
+  },
+  {
+    "Id": 2,
+    "Nombre": "Electrodomésticos",
     "IdPadre": null,
     "Propiedades": ["Marca", "Garantía"]
   },
   {
-    "Id": 2,
-    "Nombre": "Laptops",
-    "IdPadre": 1,
-    "Propiedades": ["Marca", "Garantía", "Pantalla", "Peso"]
-  },
-  {
     "Id": 3,
-    "Nombre": "Teléfonos",
-    "IdPadre": 1,
-    "Propiedades": ["Marca", "Garantía", "Color"]
+    "Nombre": "Pequeños electrodomésticos",
+    "IdPadre": 2,
+    "Propiedades": ["Potencia", "Color"]
   },
   {
     "Id": 4,
-    "Nombre": "Hogar",
+    "Nombre": "Herramientas y Ferretería",
     "IdPadre": null,
     "Propiedades": ["Marca", "Garantía"]
   },
   {
     "Id": 5,
-    "Nombre": "Cocina",
+    "Nombre": "Herramientas Eléctricas",
     "IdPadre": 4,
-    "Propiedades": ["Material", "Color"]
+    "Propiedades": ["Voltaje", "Peso"]
+  },
+  {
+    "Id": 6,
+    "Nombre": "Taladros",
+    "IdPadre": 5,
+    "Propiedades": ["Tipo", "Velocidades"]
+  },
+  {
+    "Id": 7,
+    "Nombre": "Instrumentos Musicales",
+    "IdPadre": null,
+    "Propiedades": ["Marca", "Tipo"]
+  },
+  {
+    "Id": 8,
+    "Nombre": "Cuerdas",
+    "IdPadre": 7,
+    "Propiedades": ["Material", "Número de cuerdas"]
+  },
+  {
+    "Id": 9,
+    "Nombre": "Guitarras",
+    "IdPadre": 8,
+    "Propiedades": ["Tipo", "Color"]
+  },
+  {
+    "Id": 10,
+    "Nombre": "Eléctricas",
+    "IdPadre": 9,
+    "Propiedades": ["Pastillas", "Peso"]
+  },
+  {
+    "Id": 11,
+    "Nombre": "Componentes Informáticos Avanzados",
+    "IdPadre": null,
+    "Propiedades": ["Fabricante", "Garantía"]
+  },
+  {
+    "Id": 12,
+    "Nombre": "Circuitos Integrados",
+    "IdPadre": 11,
+    "Propiedades": ["Tecnología", "Consumo"]
+  },
+  {
+    "Id": 13,
+    "Nombre": "Procesadores",
+    "IdPadre": 12,
+    "Propiedades": ["Núcleos", "Frecuencia"]
+  },
+  {
+    "Id": 14,
+    "Nombre": "Alto Rendimiento",
+    "IdPadre": 13,
+    "Propiedades": ["TDP", "Socket"]
+  },
+  {
+    "Id": 15,
+    "Nombre": "Serie Ryzen Threadripper Professional Edition",
+    "IdPadre": 14,
+    "Propiedades": ["Modelo", "Cache"]
   }
 ]

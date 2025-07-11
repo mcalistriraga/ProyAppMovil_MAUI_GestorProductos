@@ -1,0 +1,18 @@
+[
+  { "Id": 1, "Nombre": "Electrónica", "IdPadre": null },
+  { "Id": 2, "Nombre": "Laptops", "IdPadre": 1 },
+  { "Id": 3, "Nombre": "Teléfonos", "IdPadre": 1 },
+  { "Id": 4, "Nombre": "Hogar", "IdPadre": null },
+  { "Id": 5, "Nombre": "Cocina", "IdPadre": 4 },
+  { "Id": 6, "Nombre": "Tecnología y Electrónica de Consumo", "IdPadre": null },
+  { "Id": 7, "Nombre": "Computadoras Portátiles y Ultrabooks", "IdPadre": 6 },
+  { "Id": 8, "Nombre": "Ultrabooks Premium para Profesionales", "IdPadre": 7 },
+  { "Id": 9, "Nombre": "Accesorios Esenciales para Ultrabooks", "IdPadre": 8 },
+  { "Id": 10, "Nombre": "Fundas y Bolsos de Alta Protección para Laptops", "IdPadre": 9 },
+  { "Id": 11, "Nombre": "Hogar y Electrodomésticos Inteligentes", "IdPadre": null },
+  { "Id": 12, "Nombre": "Cocina y Preparación de Alimentos", "IdPadre": 11 },
+  { "Id": 13, "Nombre": "Pequeños Electrodomésticos Multifunción", "IdPadre": 12 },
+  { "Id": 14, "Nombre": "Equipos de Limpieza Automatizados", "IdPadre": 11 },
+  { "Id": 15, "Nombre": "Entretenimiento y Televisores Inteligentes", "IdPadre": 6 },
+  { "Id": 16, "Nombre": "Smartphones y Dispositivos Móviles Avanzados", "IdPadre": 6 }
+]
