@@ -1,9 +1,9 @@
+﻿using System;
 using Microsoft.Maui.Controls;
+using MauiAppGestorMovil.Helpers;     // ⬅️  NUEVO
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.ViewModels;
-using System;
-using System.Linq;
 
 namespace MauiAppGestorMovil.Views
 {
@@ -17,82 +17,102 @@ namespace MauiAppGestorMovil.Views
             InitializeComponent();
 
             _repoCategorias = new RepositorioCategorias();
-            _viewModel = new GestionDeCategoriasViewModel(_repoCategorias); // pasamos el repo
+            _viewModel = new GestionDeCategoriasViewModel(_repoCategorias);
+
             BindingContext = _viewModel;
         }
 
-        private async void AgregarCategoria_Clicked(object sender, EventArgs e)
+        /*───────────────────────────
+         *  Cerrar teclado al tocar fondo
+         *──────────────────────────*/
+        private void OnFondoTocado(object sender, EventArgs e)
         {
-            string nombre = await DisplayPromptAsync("Nueva Categor�a", "Ingrese el nombre de la categor�a:");
-            if (!string.IsNullOrWhiteSpace(nombre))
-            {
-                var nuevaCategoria = new Categoria
-                {
-                    Id = _repoCategorias.GenerarNuevoId(),
-                    Nombre = nombre,
-                    IdPadre = null,
-                    Propiedades = new List<string>()
-                };
-
-                _repoCategorias.Agregar(nuevaCategoria);
-                _viewModel.Recargar(); // actualiza jerarqu�a
-            }
+            CloseTecladoHelper.Ocultar();
         }
 
+        /*───────────────────────────
+         *  AGREGAR CATEGORÍA (ContentPage)
+         *──────────────────────────*/
+        private async void AgregarCategoria_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AgregarCategoria(_repoCategorias));
+        }
+
+        /*───────────────────────────
+         *  AGREGAR SUBCATEGORÍA (popup temporal)
+         *──────────────────────────*/
         private async void AgregarSubcategoria_Clicked(object sender, EventArgs e)
         {
             if (sender is Button btn && btn.CommandParameter is CategoriaNodo padre)
             {
-                string nombre = await DisplayPromptAsync("Nueva Subcategor�a", $"Ingrese el nombre para la subcategor�a de '{padre.Categoria.Nombre}':");
+                string nombre = await DisplayPromptAsync("Nueva Subcategoría",
+                                  $"Ingrese el nombre para la subcategoría de '{padre.Categoria.Nombre}':");
 
                 if (!string.IsNullOrWhiteSpace(nombre))
                 {
-                    var nuevaSubcategoria = new Categoria
+                    var nuevaSub = new Categoria
                     {
                         Id = _repoCategorias.GenerarNuevoId(),
                         Nombre = nombre,
                         IdPadre = padre.Categoria.Id,
-                        Propiedades = new List<string>()
+                        Propiedades = new()
                     };
 
-                    _repoCategorias.Agregar(nuevaSubcategoria);
+                    _repoCategorias.Agregar(nuevaSub);
                     _viewModel.Recargar();
                 }
             }
         }
 
+        /*───────────────────────────
+         *  EDITAR
+         *──────────────────────────*/
         private async void EditarCategoria_Clicked(object sender, EventArgs e)
         {
-            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo categoriaNodo)
+            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo nodo)
             {
-                string nuevoNombre = await DisplayPromptAsync("Editar Categor�a", "Nuevo nombre:", initialValue: categoriaNodo.Categoria.Nombre);
-                if (!string.IsNullOrWhiteSpace(nuevoNombre))
+                string nuevo = await DisplayPromptAsync("Editar Categoría",
+                                                         "Nuevo nombre:",
+                                                         initialValue: nodo.Categoria.Nombre);
+
+                if (!string.IsNullOrWhiteSpace(nuevo))
                 {
-                    categoriaNodo.Categoria.Nombre = nuevoNombre;
-                    _repoCategorias.Actualizar(categoriaNodo.Categoria);
+                    nodo.Categoria.Nombre = nuevo;
+                    _repoCategorias.Actualizar(nodo.Categoria);
                     _viewModel.Recargar();
                 }
             }
         }
 
+        /*───────────────────────────
+         *  ELIMINAR
+         *──────────────────────────*/
         private async void EliminarCategoria_Clicked(object sender, EventArgs e)
         {
-            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo categoriaNodo)
+            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo nodo)
             {
-                bool confirmar = await DisplayAlert("Eliminar", $"�Eliminar categor�a '{categoriaNodo.Categoria.Nombre}'?", "S�", "No");
-                if (confirmar)
+                bool ok = await DisplayAlert("Eliminar",
+                            $"¿Eliminar categoría '{nodo.Categoria.Nombre}'?", "Sí", "No");
+
+                if (ok)
                 {
-                    bool eliminada = _repoCategorias.Eliminar(categoriaNodo.Categoria.Id);
+                    bool eliminada = _repoCategorias.Eliminar(nodo.Categoria.Id);
+
                     if (!eliminada)
-                    {
-                        await DisplayAlert("Error", "No se puede eliminar porque tiene subcategor�as.", "OK");
-                    }
-                    else
-                    {
-                        _viewModel.Recargar();
-                    }
+                        await DisplayAlert("Error", "No se puede eliminar porque tiene subcategorías.", "OK");
+
+                    _viewModel.Recargar();
                 }
             }
+        }
+
+        /*───────────────────────────
+         *  REFRESCO AL VOLVER
+         *──────────────────────────*/
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.Recargar();   // Refresca si venimos de Agregar/Editar
         }
     }
 }

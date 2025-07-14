@@ -8,10 +8,15 @@
              BackgroundColor="#849EDE">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <!-- Tap sobre cualquier parte del fondo => Oculta teclado -->
+        <VerticalStackLayout Padding="20"
+                             Spacing="20">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFondoTocado" NumberOfTapsRequired="1"/>
+            </VerticalStackLayout.GestureRecognizers>
 
-            <!-- Encabezado reutilizable -->
-            <views:EncabezadoEmpresa TituloPagina="Gestión de Categorías" />
+            <!-- Encabezado -->
+            <views:EncabezadoEmpresa TituloPagina="Gestión de Categorías"/>
 
             <!-- Botón Agregar Categoría -->
             <Frame CornerRadius="10"
@@ -35,13 +40,12 @@
                 </Grid>
             </Frame>
 
-            <!-- Lista de Categorías usando control recursivo -->
-            <CollectionView x:Name="CategoriasCollection"
-                            ItemsSource="{Binding CategoriasJerarquicas}"
+            <!-- Lista (recursiva) -->
+            <CollectionView ItemsSource="{Binding CategoriasJerarquicas}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <viewcontrols:CategoriaItemView PaddingLeftExtra="0" />
+                        <viewcontrols:CategoriaItemView PaddingLeftExtra="0"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

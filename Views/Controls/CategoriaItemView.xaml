@@ -46,16 +46,13 @@
                     </Label>
 
                     <!-- Botón +Sub -->
-                    <controls:BotonPersonalizado Grid.Column="1"
-                                                 Texto="+Sub"
-                                                 ColorFondo="#5779EA"
-                                                 TextColor="White"
-                                                 Ancho="65"
-                                                 Alto="32"
-                                                 TamanoLetra="14"
-                                                 CornerRadiusPersonalizado="10"
-                                                 Command="{Binding AgregarSubcategoriaCommand}"
-                                                 CommandParameter="{Binding .}" />
+                    <ImageButton Grid.Column="1"
+                                 Source="iconosub_01.png"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding AgregarSubcategoriaCommand}"
+                                 CommandParameter="{Binding .}" />
 
                     <!-- Editar -->
                     <ImageButton Grid.Column="2"
