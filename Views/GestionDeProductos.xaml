@@ -10,8 +10,10 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
+            <!-- Encabezado reutilizable -->
             <views:EncabezadoEmpresa TituloPagina="Gestión de Productos..." />
 
+            <!-- Botón Agregar Producto -->
             <Frame CornerRadius="10"
                    BackgroundColor="#5679EA"
                    HasShadow="True"
@@ -33,7 +35,7 @@
                 </Grid>
             </Frame>
 
-            <!-- Lista de productos con CollectionView -->
+            <!-- Lista de productos -->
             <CollectionView x:Name="cvProductos"
                             ItemsSource="{Binding Productos}"
                             BackgroundColor="Transparent">
@@ -70,22 +72,21 @@
                                        TextColor="Black"
                                        FontFamily="Inter" />
 
-                                <!-- Controles: +Ver, Editar, Eliminar -->
+                                <!-- Controles: Ver, Editar, Eliminar -->
                                 <StackLayout Orientation="Horizontal"
                                              HorizontalOptions="End"
                                              Spacing="10"
                                              Margin="0,4,0,0">
 
-                                    <controls:BotonPersonalizado
-                                        Texto="Ver+"
-                                        ColorFondo="#5779EA"
-                                        Ancho="60"
-                                        Alto="32"
-                                        TamanoLetra="14"
-                                        CornerRadiusPersonalizado="10"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
-                                        CommandParameter="{Binding .}" />
+                                    <!-- Ver (como imagen) -->
+                                    <ImageButton Source="iconover_01.png"
+                                                 HeightRequest="50"
+                                                 WidthRequest="50"
+                                                 BackgroundColor="Transparent"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
+                                                 CommandParameter="{Binding .}" />
 
+                                    <!-- Editar -->
                                     <ImageButton Source="iconoeditar_01.png"
                                                  HeightRequest="30"
                                                  WidthRequest="30"
@@ -93,6 +94,7 @@
                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.EditarProductoCommand}"
                                                  CommandParameter="{Binding .}" />
 
+                                    <!-- Eliminar -->
                                     <ImageButton Source="iconoeliminar_01.png"
                                                  HeightRequest="30"
                                                  WidthRequest="30"

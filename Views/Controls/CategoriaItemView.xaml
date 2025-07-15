@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:MauiAppGestorMovil.Views.Controls"
-             xmlns:converters="clr-namespace:MauiAppGestorMovil.Converters"
-             xmlns:controls="clr-namespace:MauiAppGestorMovil.Controls"
+             xmlns:ctrls="clr-namespace:MauiAppGestorMovil.Controls"
+             xmlns:viewctrls="clr-namespace:MauiAppGestorMovil.Views.Controls"
+             xmlns:page="clr-namespace:MauiAppGestorMovil.Views"
+             xmlns:conv="clr-namespace:MauiAppGestorMovil.Converters"
              x:Class="MauiAppGestorMovil.Views.Controls.CategoriaItemView">
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <converters:IntToBoolConverter   x:Key="IntToBoolConverter"   />
-            <converters:BoolToFlechaConverter x:Key="BoolToFlechaConverter" />
-            <converters:IntToThicknessConverter x:Key="IntToThicknessConverter" />
-            <converters:IntIncrementConverter   x:Key="IntIncrementConverter" />
+            <conv:IntToBoolConverter        x:Key="IntToBoolConverter"/>
+            <conv:BoolToFlechaConverter     x:Key="BoolToFlechaConverter"/>
+            <conv:IntToThicknessConverter   x:Key="IntToThicknessConverter"/>
+            <conv:IntIncrementConverter     x:Key="IntIncrementConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
 
@@ -32,7 +33,7 @@
                 <Grid ColumnDefinitions="*,Auto,Auto,Auto"
                       VerticalOptions="Center">
 
-                    <!-- Nombre (truncado) con tap para mostrar completo -->
+                    <!-- Nombre (truncado) -->
                     <Label Grid.Column="0"
                            Text="{Binding NombreTruncado}"
                            FontSize="16"
@@ -45,31 +46,34 @@
                         </Label.GestureRecognizers>
                     </Label>
 
-                    <!-- Botón +Sub -->
+                    <!-- ➕ Sub  -->
                     <ImageButton Grid.Column="1"
                                  Source="iconosub_01.png"
                                  WidthRequest="50"
                                  HeightRequest="50"
                                  BackgroundColor="Transparent"
-                                 Command="{Binding AgregarSubcategoriaCommand}"
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type page:GestionDeCategorias}},
+                                                   Path=BindingContext.AgregarSubcategoriaCommand}"
                                  CommandParameter="{Binding .}" />
 
-                    <!-- Editar -->
+                    <!-- ✏️ Editar -->
                     <ImageButton Grid.Column="2"
                                  Source="iconoeditar_01.png"
                                  WidthRequest="25"
                                  HeightRequest="25"
                                  BackgroundColor="Transparent"
-                                 Command="{Binding EditarCategoriaCommand}"
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type page:GestionDeCategorias}},
+                                                   Path=BindingContext.EditarCategoriaCommand}"
                                  CommandParameter="{Binding .}" />
 
-                    <!-- Eliminar -->
+                    <!-- 🗑️ Eliminar -->
                     <ImageButton Grid.Column="3"
                                  Source="iconoeliminar_01.png"
                                  WidthRequest="25"
                                  HeightRequest="25"
                                  BackgroundColor="Transparent"
-                                 Command="{Binding EliminarCategoriaCommand}"
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type page:GestionDeCategorias}},
+                                                   Path=BindingContext.EliminarCategoriaCommand}"
                                  CommandParameter="{Binding .}" />
                 </Grid>
 
@@ -102,16 +106,15 @@
                                VerticalOptions="Center" />
                     </Grid>
 
-                    <!-- Recursión para mostrar los hijos -->
+                    <!-- Recursión -->
                     <CollectionView ItemsSource="{Binding Subcategorias}"
                                     IsVisible="{Binding EstaExpandida}"
                                     SelectionMode="None"
                                     Margin="10,0,0,0">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <!-- Llamada recursiva -->
-                                <views:CategoriaItemView
-                                    PaddingLeftExtra="{Binding Source={RelativeSource AncestorType={x:Type views:CategoriaItemView}},
+                                <viewctrls:CategoriaItemView
+                                    PaddingLeftExtra="{Binding Source={RelativeSource AncestorType={x:Type viewctrls:CategoriaItemView}},
                                                                Path=PaddingLeftExtra,
                                                                Converter={StaticResource IntIncrementConverter}}" />
                             </DataTemplate>

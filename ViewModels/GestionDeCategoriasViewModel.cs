@@ -1,6 +1,7 @@
 ﻿using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.ViewModels.Helpers;
+using MauiAppGestorMovil.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -11,65 +12,103 @@ namespace MauiAppGestorMovil.ViewModels
     {
         private readonly RepositorioCategorias _repoCategorias;
 
-        public ObservableCollection<CategoriaNodo> CategoriasJerarquicas { get; set; } = new();
+        public ObservableCollection<CategoriaNodo> CategoriasJerarquicas { get; } = new();
 
-        // Comando para agregar subcategoría
+        /*──────────────  COMANDOS  ──────────────*/
         public ICommand AgregarSubcategoriaCommand { get; }
+        public ICommand EditarCategoriaCommand { get; }
+        public ICommand EliminarCategoriaCommand { get; }
 
         public GestionDeCategoriasViewModel(RepositorioCategorias repo)
         {
             _repoCategorias = repo;
             ConstruirJerarquiaDeCategorias();
 
-            AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoria);
+            AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoriaAsync);
+            EditarCategoriaCommand = new Command<CategoriaNodo>(EditarCategoriaAsync);
+            EliminarCategoriaCommand = new Command<CategoriaNodo>(EliminarCategoriaAsync);
         }
 
+        /*──────── Árbol de categorías ────────*/
         private void ConstruirJerarquiaDeCategorias()
         {
             var todas = _repoCategorias.ObtenerTodas();
-            var mapaNodos = new Dictionary<int, CategoriaNodo>();
+            var mapa = new Dictionary<int, CategoriaNodo>();
 
-            // Paso 1: crear nodos individuales
             foreach (var cat in todas)
-            {
-                mapaNodos[cat.Id] = new CategoriaNodo(cat);
-            }
+                mapa[cat.Id] = new CategoriaNodo(cat);
 
-            // Paso 2: enlazar nodos como árbol
             CategoriasJerarquicas.Clear();
 
-            foreach (var nodo in mapaNodos.Values)
+            foreach (var nodo in mapa.Values)
             {
-                if (nodo.Categoria.IdPadre == null)
-                {
-                    // Categoría raíz
+                if (nodo.Categoria.IdPadre is null)
                     CategoriasJerarquicas.Add(nodo);
-                }
-                else if (mapaNodos.TryGetValue(nodo.Categoria.IdPadre.Value, out var padre))
-                {
+                else if (mapa.TryGetValue(nodo.Categoria.IdPadre.Value, out var padre))
                     padre.Subcategorias.Add(nodo);
-                }
             }
         }
 
-        public void Recargar()
+        public void Recargar() => ConstruirJerarquiaDeCategorias();
+
+        /*──────────➕ Subcategoría──────────*/
+        private async void AgregarSubcategoriaAsync(CategoriaNodo? padre)
         {
-            ConstruirJerarquiaDeCategorias();
+            if (padre is null) return;
+
+            var main = Application.Current?.MainPage;
+            if (main is null) return;                    //  🡺  protección nulabilidad
+
+            await main.Navigation.PushModalAsync(
+                new AgregarSubcategoria(_repoCategorias, padre));
         }
 
-        private void AgregarSubcategoria(CategoriaNodo categoriaPadre)
+        /*──────────✏️ Editar──────────*/
+        private async void EditarCategoriaAsync(CategoriaNodo? nodo)
         {
-            if (categoriaPadre == null)
+            if (nodo is null) return;
+
+            var main = Application.Current?.MainPage;
+            if (main is null) return;                    //  🡺  línea 75 resuelta
+
+            string nuevo = await main.DisplayPromptAsync(
+                               "Editar Categoría",
+                               "Nuevo nombre:",
+                               initialValue: nodo.Categoria.Nombre);
+
+            if (string.IsNullOrWhiteSpace(nuevo)) return;
+
+            nodo.Categoria.Nombre = nuevo;
+            _repoCategorias.Actualizar(nodo.Categoria);
+            Recargar();
+        }
+
+        /*──────────🗑️ Eliminar──────────*/
+        private async void EliminarCategoriaAsync(CategoriaNodo? nodo)
+        {
+            if (nodo is null) return;
+
+            var main = Application.Current?.MainPage;
+            if (main is null) return;                    //  🡺  línea 93 resuelta
+
+            bool ok = await main.DisplayAlert(
+                          "Eliminar",
+                          $"¿Eliminar categoría '{nodo.Categoria.Nombre}'?",
+                          "Sí", "No");
+
+            if (!ok) return;
+
+            bool eliminada = _repoCategorias.Eliminar(nodo.Categoria.Id);
+
+            if (!eliminada)
+            {
+                await main.DisplayAlert("Error",
+                                        "No se puede eliminar porque tiene subcategorías.",
+                                        "OK");
                 return;
+            }
 
-            // Aquí puedes abrir la página para agregar subcategoría,
-            // pasar la categoríaPadre como parámetro,
-            // o agregar lógica para crear la subcategoría directamente.
-
-            // Por ejemplo, lanzar un mensaje por ahora:
-            System.Diagnostics.Debug.WriteLine($"Agregar subcategoría para: {categoriaPadre.Categoria.Nombre}");
-
-            // Luego, se debería implementar navegación o diálogo para agregar la subcategoría.
+            Recargar();
         }
     }
 }

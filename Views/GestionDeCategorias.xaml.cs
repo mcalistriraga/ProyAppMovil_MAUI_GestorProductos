@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Maui.Controls;
-using MauiAppGestorMovil.Helpers;     // ⬅️  NUEVO
+using MauiAppGestorMovil.Helpers;
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
-using MauiAppGestorMovil.ViewModels;
+using MauiAppGestorMovil.ViewModels;          //  ⬅️  NUEVO
 
 namespace MauiAppGestorMovil.Views
 {
@@ -22,54 +22,31 @@ namespace MauiAppGestorMovil.Views
             BindingContext = _viewModel;
         }
 
-        /*───────────────────────────
-         *  Cerrar teclado al tocar fondo
-         *──────────────────────────*/
-        private void OnFondoTocado(object sender, EventArgs e)
-        {
+        /*──────────────────────────────*/
+        private void OnFondoTocado(object sender, EventArgs e) =>
             CloseTecladoHelper.Ocultar();
-        }
 
-        /*───────────────────────────
-         *  AGREGAR CATEGORÍA (ContentPage)
-         *──────────────────────────*/
-        private async void AgregarCategoria_Clicked(object sender, EventArgs e)
-        {
+        /*──────────────────────────────*/
+        private async void AgregarCategoria_Clicked(object sender, EventArgs e) =>
             await Navigation.PushModalAsync(new AgregarCategoria(_repoCategorias));
-        }
 
-        /*───────────────────────────
-         *  AGREGAR SUBCATEGORÍA (popup temporal)
-         *──────────────────────────*/
+        /*──────────────────────────────*/
         private async void AgregarSubcategoria_Clicked(object sender, EventArgs e)
         {
-            if (sender is Button btn && btn.CommandParameter is CategoriaNodo padre)
-            {
-                string nombre = await DisplayPromptAsync("Nueva Subcategoría",
-                                  $"Ingrese el nombre para la subcategoría de '{padre.Categoria.Nombre}':");
+            CategoriaNodo? padre = null;
 
-                if (!string.IsNullOrWhiteSpace(nombre))
-                {
-                    var nuevaSub = new Categoria
-                    {
-                        Id = _repoCategorias.GenerarNuevoId(),
-                        Nombre = nombre,
-                        IdPadre = padre.Categoria.Id,
-                        Propiedades = new()
-                    };
+            if (sender is Button b && b.CommandParameter is CategoriaNodo n1) padre = n1;
+            if (sender is ImageButton ib && ib.CommandParameter is CategoriaNodo n2) padre = n2;
 
-                    _repoCategorias.Agregar(nuevaSub);
-                    _viewModel.Recargar();
-                }
-            }
+            if (padre == null) return;
+
+            await Navigation.PushModalAsync(new AgregarSubcategoria(_repoCategorias, padre));
         }
 
-        /*───────────────────────────
-         *  EDITAR
-         *──────────────────────────*/
+        /*──────────────────────────────*/
         private async void EditarCategoria_Clicked(object sender, EventArgs e)
         {
-            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo nodo)
+            if (sender is ImageButton ib && ib.CommandParameter is CategoriaNodo nodo)
             {
                 string nuevo = await DisplayPromptAsync("Editar Categoría",
                                                          "Nuevo nombre:",
@@ -84,21 +61,19 @@ namespace MauiAppGestorMovil.Views
             }
         }
 
-        /*───────────────────────────
-         *  ELIMINAR
-         *──────────────────────────*/
+        /*──────────────────────────────*/
         private async void EliminarCategoria_Clicked(object sender, EventArgs e)
         {
-            if (sender is ImageButton btn && btn.CommandParameter is CategoriaNodo nodo)
+            if (sender is ImageButton ib && ib.CommandParameter is CategoriaNodo nodo)
             {
                 bool ok = await DisplayAlert("Eliminar",
-                            $"¿Eliminar categoría '{nodo.Categoria.Nombre}'?", "Sí", "No");
+                                             $"¿Eliminar categoría '{nodo.Categoria.Nombre}'?",
+                                             "Sí", "No");
 
                 if (ok)
                 {
-                    bool eliminada = _repoCategorias.Eliminar(nodo.Categoria.Id);
-
-                    if (!eliminada)
+                    bool elim = _repoCategorias.Eliminar(nodo.Categoria.Id);
+                    if (!elim)
                         await DisplayAlert("Error", "No se puede eliminar porque tiene subcategorías.", "OK");
 
                     _viewModel.Recargar();
@@ -106,13 +81,10 @@ namespace MauiAppGestorMovil.Views
             }
         }
 
-        /*───────────────────────────
-         *  REFRESCO AL VOLVER
-         *──────────────────────────*/
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.Recargar();   // Refresca si venimos de Agregar/Editar
+            _viewModel.Recargar();
         }
     }
 }

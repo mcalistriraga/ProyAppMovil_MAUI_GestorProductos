@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
+             x:Class="MauiAppGestorMovil.Views.AgregarSubcategoria"
+             BackgroundColor="#849EDE"
+             Title="+ Agregar Subcategoría">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="25">
+
+                <!-- Oculta el teclado al tocar el fondo -->
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFondoTocado" NumberOfTapsRequired="1"/>
+                </VerticalStackLayout.GestureRecognizers>
+
+                <!-- Encabezado reutilizable -->
+                <views:EncabezadoEmpresa TituloPagina="+ Agregar Subcategoría"/>
+
+                <!-- Tarjeta central -->
+                <Frame BackgroundColor="#E1E8FB"
+                       CornerRadius="10"
+                       Padding="20"
+                       HasShadow="True"
+                       HorizontalOptions="Center"
+                       WidthRequest="412"
+                       HeightRequest="178">
+
+                    <VerticalStackLayout Spacing="15">
+
+                        <!-- Etiqueta -->
+                        <Label Text="Nombre de la Subcategoría:"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="Black"/>
+
+                        <!-- Entry -->
+                        <Entry x:Name="NombreEntry"
+                               Placeholder="Escriba el nombre..."
+                               FontFamily="Inter"
+                               FontSize="16"
+                               BackgroundColor="White"
+                               TextColor="Black"/>
+
+                        <!-- Botones -->
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="15">
+                            <Button Text="Cancelar"
+                                    BackgroundColor="#DA6533"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    WidthRequest="90"
+                                    HeightRequest="36"
+                                    Clicked="Cancelar_Clicked"/>
+
+                            <Button Text="Aceptar"
+                                    BackgroundColor="#5779EA"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    WidthRequest="90"
+                                    HeightRequest="36"
+                                    Clicked="Aceptar_Clicked"/>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

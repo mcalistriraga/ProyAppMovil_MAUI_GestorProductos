@@ -1,19 +1,22 @@
 using MauiAppGestorMovil.Helpers;   // ??  NUEVO
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
+using MauiAppGestorMovil.ViewModels;
 using Microsoft.Maui.Controls;
 using System;
 
 namespace MauiAppGestorMovil.Views
 {
-    public partial class AgregarCategoria : ContentPage
+    public partial class AgregarSubcategoria : ContentPage
     {
         private readonly RepositorioCategorias _repo;
+        private readonly CategoriaNodo _padre;
 
-        public AgregarCategoria(RepositorioCategorias repo)
+        public AgregarSubcategoria(RepositorioCategorias repo, CategoriaNodo padre)
         {
             InitializeComponent();
             _repo = repo;
+            _padre = padre;
         }
 
         /*???????????????????????
@@ -46,7 +49,7 @@ namespace MauiAppGestorMovil.Views
             {
                 Id = _repo.GenerarNuevoId(),
                 Nombre = nombre,
-                IdPadre = null,
+                IdPadre = _padre.Categoria.Id,
                 Propiedades = new()
             };
 
