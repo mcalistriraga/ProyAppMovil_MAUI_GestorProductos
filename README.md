@@ -3,44 +3,52 @@ INFORME PRELIMINAR DE ARQUITECTURA Y FUNCIONAMIENTO DEL SISTEMA
 
 1. OBJETIVO DEL SISTEMA
 -----------------------
-El sistema desarrollado es una aplicación multiplataforma (Windows, Android, iOS) creada con .NET MAUI, orientada a la gestión de productos y categorías, permitiendo su visualización, modificación y administración desde una interfaz moderna y portable.
+El sistema desarrollado es una aplicación multiplataforma (Windows, Android, iOS) creada con .NET MAUI, orientada a la gestión de productos y categorías. Permite su visualización, edición y administración desde una interfaz moderna y portable, con soporte para estructuras jerárquicas y propiedades específicas por categoría.
 
 2. ARQUITECTURA GENERAL
 -----------------------
 - El sistema sigue una arquitectura MVVM (Model-View-ViewModel), separando claramente los modelos de datos, la lógica de negocio y la interfaz de usuario.
 - Utiliza archivos JSON como mecanismo de persistencia local para productos y categorías.
-- Implementa repositorios para el acceso, escritura y lectura estructurada de los datos.
-- La interfaz gráfica está desarrollada en XAML, con vistas desacopladas de la lógica.
-- El sistema es portable y las rutas de acceso a datos se gestionan dinámicamente para cada plataforma, evitando dependencias de rutas absolutas.
+- Implementa repositorios desacoplados que gestionan la lectura y escritura estructurada de los datos.
+- La interfaz gráfica está desarrollada en XAML, con vistas modulares y reutilizables (como encabezados, tarjetas, botones).
+- Las rutas de acceso a datos se gestionan dinámicamente según la plataforma, garantizando portabilidad y evitando rutas absolutas.
 
 3. COMPONENTES PRINCIPALES
 --------------------------
-- **Modelos**: Definen las entidades principales (`Producto`, `Categoria`, etc.) con sus propiedades y relaciones.
-- **Repositorios**: Encapsulan la lógica de acceso a datos (lectura/escritura de archivos JSON).
-- **ViewModels**: Gestionan el estado y la lógica de presentación para cada vista, exponiendo comandos y colecciones observables para el binding.
-- **Vistas (Views)**: Definidas en XAML, representan la interfaz del usuario, enlazadas a los ViewModels.
-- **Inicialización de datos**: Al iniciar la app, los archivos de datos son copiados desde la carpeta `Resources` a la ruta local de datos del usuario si no existen, garantizando portabilidad y persistencia inicial.
+- **Modelos**: Entidades como `Producto` y `Categoria`, incluyendo soporte para propiedades específicas según el tipo de producto.
+- **Repositorios**: Encapsulan la lógica de acceso a archivos JSON (`productos.json`, `categorias.json`).
+- **ViewModels**: Gestionan el estado de cada vista, incluyendo comandos y colecciones observables para interacción fluida con la interfaz.
+- **Vistas (Views)**: En XAML, separadas en componentes reutilizables (encabezado, ítems de producto, ítems de categoría).
+- **Inicialización**: Al primer inicio, los datos base son copiados desde `Resources` al almacenamiento local del usuario para garantizar persistencia y portabilidad.
 
-4. FLUJO DE FUNCIONAMIENTO PRINCIPAL
+4. FUNCIONAMIENTO ACTUAL DEL SISTEMA
 ------------------------------------
-a) Al arrancar, la aplicación copia (si es necesario) los archivos `productos.json` y `categorias.json` desde `Resources` a la carpeta local del usuario.
-b) Los ViewModels cargan los datos desde estos archivos utilizando los repositorios.
-c) La interfaz, mediante binding a los ViewModels, muestra los productos y categorías en listas, permitiendo operaciones de alta, baja y edición.
-d) Los cambios realizados por el usuario se reflejan en los archivos locales, manteniendo la persistencia entre sesiones.
-e) El sistema es capaz de mostrar mensajes informativos y advertencias (por ejemplo, falta de archivos de datos) durante el desarrollo.
+- Vista de carga inicial con transición a panel de control.
+- Pantalla principal con acceso a gestión de productos y gestión de categorías.
+- Visualización de productos en tarjetas, con botón para ver detalles.
+- Página de detalles del producto mostrando nombre, categoría, descripción, propiedades específicas, cantidad y precio.
+- Gestión de categorías con estructura jerárquica hasta 4 niveles, usando `CollectionView` anidado.
+- Truncamiento visual de nombres largos con alerta emergente al tocar.
+- Funcionalidad para agregar categorías raíz y subcategorías, mediante pantallas completas en lugar de prompts emergentes.
+- Funcionalidad para editar y eliminar categorías individuales.
+- Confirmaciones para evitar eliminaciones accidentales (sin eliminación en cascada por ahora).
+- Datos persistentes en cada sesión.
 
 5. PORTABILIDAD Y BUENAS PRÁCTICAS
 -----------------------------------
-- El uso de rutas relativas y la copia automática de los recursos iniciales garantizan el funcionamiento en todas las plataformas soportadas por MAUI.
-- La separación clara de responsabilidades (modelo, repositorio, vista, viewmodel) facilita el mantenimiento, pruebas y escalabilidad del sistema.
-- La arquitectura permite, en el futuro, reemplazar la persistencia por otra tecnología (base de datos local o remota) con cambios mínimos en la lógica de negocio.
+- Uso de rutas relativas y recursos embebidos garantiza portabilidad entre plataformas MAUI.
+- Separación clara de responsabilidades: modelo de datos, lógica de acceso, presentación y vista.
+- Estilos visuales personalizados y consistentes mediante componentes reutilizables.
+- Arquitectura abierta para permitir futura migración a base de datos o servicios REST sin afectar las vistas.
 
-6. PUNTOS PENDIENTES Y MEJORAS FUTURAS
----------------------------------------
-- Implementar la funcionalidad completa para agregar, editar y eliminar productos y categorías desde la interfaz.
-- Mejorar la validación de datos y manejo de errores.
-- Internacionalización y adaptación de la interfaz a distintos idiomas.
-- Sincronización de datos con servicios remotos, si se requiere.
+6. PENDIENTES Y MEJORAS PLANIFICADAS
+-------------------------------------
+- Eliminar en cascada subcategorías y productos al borrar una categoría padre (protegido por rol en versiones futuras).
+- Mejorar validación de formularios y mensajes de error amigables.
+- Agregar control de acceso y roles de usuario (por ejemplo, superusuario).
+- Internacionalización y soporte multilenguaje.
+- Sincronización remota de datos (Firebase, Azure u otro backend).
+- Migración opcional a persistencia con base de datos local (SQLite) o servicio en la nube.
 
 ----------------------------------------------------------
-Este informe es preliminar y representa el estado actual a la fecha: 09/06/2025.
+Este informe es preliminar y representa el estado actual del sistema a la fecha: 19/07/2025.
