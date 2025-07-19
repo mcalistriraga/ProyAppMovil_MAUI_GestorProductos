@@ -89,26 +89,32 @@ namespace MauiAppGestorMovil.ViewModels
             if (nodo is null) return;
 
             var main = Application.Current?.MainPage;
-            if (main is null) return;                    //  🡺  línea 93 resuelta
+            if (main is null) return;
 
-            bool ok = await main.DisplayAlert(
-                          "Eliminar",
-                          $"¿Eliminar categoría '{nodo.Categoria.Nombre}'?",
-                          "Sí", "No");
+            // Asume que tienes acceso al RepositorioProductos
+            var repoProductos = new RepositorioProductos();
 
-            if (!ok) return;
+            var (eliminado, enUso, aEliminar) =
+                _repoCategorias.EliminarConSubcategorias(nodo.Categoria.Id, repoProductos);
 
-            bool eliminada = _repoCategorias.Eliminar(nodo.Categoria.Id);
-
-            if (!eliminada)
+            if (!eliminado)
             {
-                await main.DisplayAlert("Error",
-                                        "No se puede eliminar porque tiene subcategorías.",
-                                        "OK");
+                await main.DisplayAlert("No se puede eliminar",
+                    "Las siguientes categorías están en uso:\n\n" +
+                    string.Join("\n", enUso), "OK");
                 return;
             }
 
+            bool confirm = await main.DisplayAlert(
+                "Confirmar eliminación",
+                "Se eliminarán las siguientes categorías:\n\n" +
+                string.Join("\n", aEliminar), "Eliminar", "Cancelar");
+
+            if (!confirm) return;
+
+            // Ya fue eliminado, solo recargar
             Recargar();
         }
+
     }
 }

@@ -80,8 +80,8 @@
 
                                     <!-- Ver (como imagen) -->
                                     <ImageButton Source="iconover_01.png"
-                                                 HeightRequest="50"
-                                                 WidthRequest="50"
+                                                 HeightRequest="55"
+                                                 WidthRequest="55"
                                                  BackgroundColor="Transparent"
                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type views:GestionDeProductos}}, Path=BindingContext.VerProductoCommand}"
                                                  CommandParameter="{Binding .}" />

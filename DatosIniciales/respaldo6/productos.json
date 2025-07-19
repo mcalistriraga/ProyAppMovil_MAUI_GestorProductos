@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "El arte de la programación",
+    "Descripcion": "Libro técnico con ejemplos en C y algoritmos clásicos",
+    "IdCategoria": 1,
+    "Precio": 59.99,
+    "Stock": 40,
+    "PropiedadesEspecificas": {
+      "Autor": "Donald Knuth",
+      "Editorial": "Addison‑Wesley"
+    }
+  },
+  {
+    "Id": 2,
+    "Nombre": "Tostadora Philips Daily",
+    "Descripcion": "Tostadora 830 W con calentamiento rápido",
+    "IdCategoria": 3,
+    "Precio": 34.50,
+    "Stock": 25,
+    "PropiedadesEspecificas": {
+      "Marca": "Philips",
+      "Potencia": "830 W",
+      "Color": "Blanca"
+    }
+  },
+  {
+    "Id": 3,
+    "Nombre": "Taladro Bosch Professional GSB 13 RE",
+    "Descripcion": "Taladro percutor 600 W velocidad variable",
+    "IdCategoria": 6,
+    "Precio": 89.00,
+    "Stock": 18,
+    "PropiedadesEspecificas": {
+      "Voltaje": "220 V",
+      "Peso": "1.7 kg",
+      "Tipo": "Percutor"
+    }
+  },
+  {
+    "Id": 4,
+    "Nombre": "Guitarra Fender Stratocaster Deluxe Olympic White",
+    "Descripcion": "Guitarra eléctrica Fender, cuerpo aliso, pastillas Noiseless",
+    "IdCategoria": 10,
+    "Precio": 1299.99,
+    "Stock": 6,
+    "PropiedadesEspecificas": {
+      "Marca": "Fender",
+      "Tipo": "Eléctrica",
+      "Color": "Blanca",
+      "Pastillas": "Noiseless",
+      "Peso": "3.4 kg"
+    }
+  },
+  {
+    "Id": 5,
+    "Nombre": "AMD Ryzen Threadripper PRO 7995WX",
+    "Descripcion": "96 núcleos / 192 hilos, 350 W, socket sWRX9",
+    "IdCategoria": 15,
+    "Precio": 4999.00,
+    "Stock": 3,
+    "PropiedadesEspecificas": {
+      "Fabricante": "AMD",
+      "Núcleos": "96",
+      "Frecuencia": "5.1 GHz",
+      "TDP": "350 W",
+      "Socket": "sWRX9",
+      "Modelo": "TR PRO 7995WX",
+      "Cache": "384 MB"
+    }
+  }
+]

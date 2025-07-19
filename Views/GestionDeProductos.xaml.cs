@@ -1,6 +1,8 @@
 using MauiAppGestorMovil.ViewModels;
 using Microsoft.Maui.Controls;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MauiAppGestorMovil.Views
 {
@@ -20,10 +22,19 @@ namespace MauiAppGestorMovil.Views
             BindingContext = _viewModel;
         }
 
-        private async void MostrarRutaDePersistencia()
+        protected override async void OnAppearing()
         {
-            string ruta = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            await DisplayAlert("Ruta de persistencia actual", ruta, "OK");
+            base.OnAppearing();
+
+            // Esperamos un momento a que termine de cargarse si es necesario
+            await Task.Delay(300); // ajusta si tu carga es más lenta
+
+            var total = _viewModel.Productos.Count;
+            var ultimo = _viewModel.Productos.LastOrDefault()?.Nombre ?? "N/A";
+
+            await DisplayAlert("Productos cargados",
+                $"Cantidad total: {total}\nÚltimo producto: {ultimo}",
+                "OK");
         }
     }
 }

@@ -113,5 +113,54 @@ namespace MauiAppGestorMovil.Repositories
         {
             return categorias.Any() ? categorias.Max(c => c.Id) + 1 : 1;
         }
+
+        /// <summary>
+        /// Obtiene todas las categorías descendientes (subcategorías) de una categoría.
+        /// </summary>
+        public List<Categoria> ObtenerSubcategoriasRecursivas(int idCategoria)
+        {
+            List<Categoria> resultado = new();
+            ObtenerSubcategoriasRecursivasAux(idCategoria, resultado);
+            return resultado;
+        }
+
+        private void ObtenerSubcategoriasRecursivasAux(int idPadre, List<Categoria> acumulador)
+        {
+            var hijos = categorias.Where(c => c.IdPadre == idPadre).ToList();
+            foreach (var hijo in hijos)
+            {
+                acumulador.Add(hijo);
+                ObtenerSubcategoriasRecursivasAux(hijo.Id, acumulador);
+            }
+        }
+
+        /// <summary>
+        /// Intenta eliminar una categoría y todas sus subcategorías recursivamente.
+        /// Solo elimina si ninguna está en uso.
+        /// </summary>
+        public (bool eliminado, List<string> categoriasEnUso, List<string> categoriasAEliminar)
+            EliminarConSubcategorias(int idCategoria, RepositorioProductos repoProductos)
+        {
+            var todasAEliminar = new List<Categoria> { BuscarPorId(idCategoria)! };
+            todasAEliminar.AddRange(ObtenerSubcategoriasRecursivas(idCategoria));
+
+            List<string> enUso = new();
+            foreach (var cat in todasAEliminar)
+            {
+                if (CategoriaEnUso(cat.Id, repoProductos))
+                    enUso.Add(cat.Nombre);
+            }
+
+            if (enUso.Any())
+                return (false, enUso, todasAEliminar.Select(c => c.Nombre).ToList());
+
+            // Eliminar categorías
+            foreach (var cat in todasAEliminar)
+                categorias.RemoveAll(c => c.Id == cat.Id);
+
+            GuardarTodas();
+            return (true, new(), todasAEliminar.Select(c => c.Nombre).ToList());
+        }
+
     }
 }

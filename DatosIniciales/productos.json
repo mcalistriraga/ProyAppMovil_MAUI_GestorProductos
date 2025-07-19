@@ -39,8 +39,8 @@
   },
   {
     "Id": 4,
-    "Nombre": "Guitarra Fender Stratocaster Deluxe Olympic White",
-    "Descripcion": "Guitarra eléctrica Fender, cuerpo aliso, pastillas Noiseless",
+    "Nombre": "Guitarra Fender Stratocaster Deluxe",
+    "Descripcion": "Guitarra eléctrica, pastillas Noiseless, color blanco",
     "IdCategoria": 10,
     "Precio": 1299.99,
     "Stock": 6,
@@ -55,7 +55,7 @@
   {
     "Id": 5,
     "Nombre": "AMD Ryzen Threadripper PRO 7995WX",
-    "Descripcion": "96 núcleos / 192 hilos, 350 W, socket sWRX9",
+    "Descripcion": "96 núcleos / 192 hilos, socket sWRX9",
     "IdCategoria": 15,
     "Precio": 4999.00,
     "Stock": 3,
@@ -67,6 +67,126 @@
       "Socket": "sWRX9",
       "Modelo": "TR PRO 7995WX",
       "Cache": "384 MB"
+    }
+  },
+  {
+    "Id": 6,
+    "Nombre": "Silla ergonómica de oficina Executive Pro",
+    "Descripcion": "Diseño ergonómico, respaldo ajustable, material resistente",
+    "IdCategoria": 18,
+    "Precio": 199.99,
+    "Stock": 15,
+    "PropiedadesEspecificas": {
+      "Material": "Cuero sintético",
+      "Altura Ajustable": "Sí"
+    }
+  },
+  {
+    "Id": 7,
+    "Nombre": "Interruptor de alta eficiencia 1200 W",
+    "Descripcion": "Interruptor eléctrico para herramientas industriales",
+    "IdCategoria": 5,
+    "Precio": 15.90,
+    "Stock": 60,
+    "PropiedadesEspecificas": {
+      "Voltaje": "120 V",
+      "Peso": "0.3 kg"
+    }
+  },
+  {
+    "Id": 8,
+    "Nombre": "Procesador Intel Xeon Gold 6416H",
+    "Descripcion": "32 núcleos, 2.2 GHz, TDP 250 W",
+    "IdCategoria": 14,
+    "Precio": 2899.00,
+    "Stock": 8,
+    "PropiedadesEspecificas": {
+      "TDP": "250 W",
+      "Socket": "LGA4677"
+    }
+  },
+  {
+    "Id": 9,
+    "Nombre": "Decoración mural vintage",
+    "Descripcion": "Diseño retro para salas modernas",
+    "IdCategoria": 16,
+    "Precio": 44.99,
+    "Stock": 22,
+    "PropiedadesEspecificas": {
+      "Estilo": "Vintage",
+      "Color": "Negro/Beige"
+    }
+  },
+  {
+    "Id": 10,
+    "Nombre": "Set de cuerdas para guitarra clásica",
+    "Descripcion": "Material de nylon, sonido suave y duradero",
+    "IdCategoria": 8,
+    "Precio": 12.00,
+    "Stock": 50,
+    "PropiedadesEspecificas": {
+      "Material": "Nylon",
+      "Número de cuerdas": "6"
+    }
+  },
+  {
+    "Id": 11,
+    "Nombre": "Libro: Inteligencia Artificial Moderna",
+    "Descripcion": "Conceptos clave, redes neuronales y aprendizaje profundo",
+    "IdCategoria": 1,
+    "Precio": 45.00,
+    "Stock": 30,
+    "PropiedadesEspecificas": {
+      "Autor": "Peter Norvig",
+      "Editorial": "Pearson"
+    }
+  },
+  {
+    "Id": 12,
+    "Nombre": "Microprocesador ARM Cortex-A78",
+    "Descripcion": "Tecnología de 5 nm, consumo reducido",
+    "IdCategoria": 12,
+    "Precio": 38.75,
+    "Stock": 100,
+    "PropiedadesEspecificas": {
+      "Tecnología": "5 nm",
+      "Consumo": "5 W"
+    }
+  },
+  {
+    "Id": 13,
+    "Nombre": "Batidora de mano Taurus 500W",
+    "Descripcion": "Compacta y potente, perfecta para cocina rápida",
+    "IdCategoria": 3,
+    "Precio": 29.95,
+    "Stock": 35,
+    "PropiedadesEspecificas": {
+      "Potencia": "500 W",
+      "Color": "Negra"
+    }
+  },
+  {
+    "Id": 14,
+    "Nombre": "Silla de oficina ergonómica Mesh Pro",
+    "Descripcion": "Respaldar de malla y ajuste lumbar",
+    "IdCategoria": 18,
+    "Precio": 159.90,
+    "Stock": 10,
+    "PropiedadesEspecificas": {
+      "Material": "Malla",
+      "Altura Ajustable": "Sí"
+    }
+  },
+  {
+    "Id": 15,
+    "Nombre": "Guitarra clásica Yamaha C40",
+    "Descripcion": "Cuerpo de abeto, sonido tradicional",
+    "IdCategoria": 9,
+    "Precio": 139.00,
+    "Stock": 12,
+    "PropiedadesEspecificas": {
+      "Tipo": "Clásica",
+      "Color": "Natural"
     }
   }
 ]

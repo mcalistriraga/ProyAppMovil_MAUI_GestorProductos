@@ -88,29 +88,5 @@
     "Nombre": "Serie Ryzen Threadripper Professional Edition",
     "IdPadre": 14,
     "Propiedades": ["Modelo", "Cache"]
-  },
-  {
-    "Id": 16,
-    "Nombre": "Decoración de Interiores",
-    "IdPadre": null,
-    "Propiedades": ["Estilo", "Color"]
-  },
-  {
-    "Id": 17,
-    "Nombre": "Oficina",
-    "IdPadre": null,
-    "Propiedades": ["Tipo"]
-  },
-  {
-    "Id": 18,
-    "Nombre": "Sillas de Oficina",
-    "IdPadre": 17,
-    "Propiedades": ["Material", "Altura Ajustable"]
-  },
-  {
-    "Id": 19,
-    "Nombre": "Accesorios musicales",
-    "IdPadre": null,
-    "Propiedades": []
   }
 ]
