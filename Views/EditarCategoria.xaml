@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
+             x:Class="MauiAppGestorMovil.Views.EditarCategoria"
+             Title="Editar Categoría"
+             BackgroundColor="#849EDE">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <!-- Encabezado reutilizable con título dinámico -->
+            <views:EncabezadoEmpresa TituloPagina="Editar Categoría" />
+
+            <!-- Campo de nombre -->
+            <Label Text="Nombre de la categoría"
+                   FontSize="16"
+                   FontFamily="Inter"
+                   TextColor="White"/>
+
+            <Frame BackgroundColor="#F0F0F0"
+                   Padding="10"
+                   CornerRadius="5"
+                   HasShadow="False">
+                <Entry x:Name="NombreEntry"
+                       Text="{Binding NombreCategoria}"
+                       Placeholder="Ingrese un nuevo nombre"
+                       FontSize="16"
+                       FontFamily="Inter"
+                       BackgroundColor="Transparent"
+                       HeightRequest="50" />
+            </Frame>
+
+            <!-- Botones -->
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+
+                <!-- Botón Guardar -->
+                <Frame CornerRadius="10" BackgroundColor="#5679EA" HasShadow="False">
+                    <Grid Padding="0">
+                        <Button Text="Guardar"
+                                Command="{Binding GuardarCommand}"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontFamily="Inter"
+                                BackgroundColor="Transparent"
+                                WidthRequest="120"
+                                HeightRequest="45"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Botón Cancelar -->
+                <Frame CornerRadius="10" BackgroundColor="#CCCCCC" HasShadow="False">
+                    <Grid Padding="0">
+                        <Button Text="Cancelar"
+                                Command="{Binding CancelarCommand}"
+                                TextColor="Black"
+                                FontFamily="Inter"
+                                BackgroundColor="Transparent"
+                                WidthRequest="120"
+                                HeightRequest="45"/>
+                    </Grid>
+                </Frame>
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
