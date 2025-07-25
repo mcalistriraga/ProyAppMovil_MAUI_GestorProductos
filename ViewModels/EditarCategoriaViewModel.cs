@@ -60,12 +60,15 @@ namespace MauiAppGestorMovil.ViewModels
             _categoria.Nombre = NombreCategoria;
             _repositorio.Actualizar(_categoria);
 
-            await _navigation.PopModalAsync();  // ✅ Corrección: se usa Modal
+            // ✅ Envía mensaje de actualización antes de cerrar
+            MessagingCenter.Send(this, "CategoriaEditada");
+
+            await _navigation.PopModalAsync();  // sigue siendo modal
         }
 
         private async void Cancelar()
         {
-            await _navigation.PopModalAsync();  // ✅ Corrección: se usa Modal
+            await _navigation.PopModalAsync();  // sigue siendo modal
         }
     }
 }

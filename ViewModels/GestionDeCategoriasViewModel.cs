@@ -5,6 +5,7 @@ using MauiAppGestorMovil.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;  // necesario para MessagingCenter
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -23,6 +24,12 @@ namespace MauiAppGestorMovil.ViewModels
         {
             _repoCategorias = repo;
             ConstruirJerarquiaDeCategorias();
+
+            // Suscribirse al mensaje para recargar
+            MessagingCenter.Subscribe<EditarCategoriaViewModel>(this, "CategoriaEditada", sender =>
+            {
+                Recargar();
+            });
 
             AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoriaAsync);
             EditarCategoriaCommand = new Command<CategoriaNodo>(EditarCategoriaAsync);
@@ -57,7 +64,7 @@ namespace MauiAppGestorMovil.ViewModels
             if (padre is null) return;
 
             var main = Application.Current?.MainPage;
-            if (main is null) return;                    //  🡺  protección nulabilidad
+            if (main is null) return;
 
             await main.Navigation.PushModalAsync(
                 new AgregarSubcategoria(_repoCategorias, padre));
@@ -69,18 +76,10 @@ namespace MauiAppGestorMovil.ViewModels
             if (nodo is null) return;
 
             var main = Application.Current?.MainPage;
-            if (main is null) return;                    //  🡺  línea 75 resuelta
+            if (main is null) return;
 
-            string nuevo = await main.DisplayPromptAsync(
-                               "Editar Categoría",
-                               "Nuevo nombre:",
-                               initialValue: nodo.Categoria.Nombre);
-
-            if (string.IsNullOrWhiteSpace(nuevo)) return;
-
-            nodo.Categoria.Nombre = nuevo;
-            _repoCategorias.Actualizar(nodo.Categoria);
-            Recargar();
+            await main.Navigation.PushModalAsync(
+                new EditarCategoria(_repoCategorias, nodo.Categoria));
         }
 
         /*──────────🗑️ Eliminar──────────*/
@@ -91,7 +90,6 @@ namespace MauiAppGestorMovil.ViewModels
             var main = Application.Current?.MainPage;
             if (main is null) return;
 
-            // Asume que tienes acceso al RepositorioProductos
             var repoProductos = new RepositorioProductos();
 
             var (eliminado, enUso, aEliminar) =
@@ -112,9 +110,7 @@ namespace MauiAppGestorMovil.ViewModels
 
             if (!confirm) return;
 
-            // Ya fue eliminado, solo recargar
             Recargar();
         }
-
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Maui.Controls;
 using MauiAppGestorMovil.Helpers;
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
-using MauiAppGestorMovil.ViewModels;          //  ⬅️  NUEVO
+using MauiAppGestorMovil.ViewModels;
 
 namespace MauiAppGestorMovil.Views
 {
@@ -20,6 +20,12 @@ namespace MauiAppGestorMovil.Views
             _viewModel = new GestionDeCategoriasViewModel(_repoCategorias);
 
             BindingContext = _viewModel;
+
+            // Suscribirse al mensaje para recargar automáticamente al volver de una edición
+            MessagingCenter.Subscribe<object>(this, "RecargarCategorias", (_) =>
+            {
+                _viewModel.Recargar();
+            });
         }
 
         /*──────────────────────────────*/
@@ -41,24 +47,6 @@ namespace MauiAppGestorMovil.Views
             if (padre == null) return;
 
             await Navigation.PushModalAsync(new AgregarSubcategoria(_repoCategorias, padre));
-        }
-
-        /*──────────────────────────────*/
-        private async void EditarCategoria_Clicked(object sender, EventArgs e)
-        {
-            if (sender is ImageButton ib && ib.CommandParameter is CategoriaNodo nodo)
-            {
-                string nuevo = await DisplayPromptAsync("Editar Categoría",
-                                                         "Nuevo nombre:",
-                                                         initialValue: nodo.Categoria.Nombre);
-
-                if (!string.IsNullOrWhiteSpace(nuevo))
-                {
-                    nodo.Categoria.Nombre = nuevo;
-                    _repoCategorias.Actualizar(nodo.Categoria);
-                    _viewModel.Recargar();
-                }
-            }
         }
 
         /*──────────────────────────────*/
@@ -85,6 +73,14 @@ namespace MauiAppGestorMovil.Views
         {
             base.OnAppearing();
             _viewModel.Recargar();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            // Cancelar la suscripción para evitar fugas de memoria
+            MessagingCenter.Unsubscribe<object>(this, "RecargarCategorias");
         }
     }
 }
