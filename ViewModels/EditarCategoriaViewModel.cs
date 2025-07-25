@@ -53,7 +53,12 @@ namespace MauiAppGestorMovil.ViewModels
         {
             if (string.IsNullOrWhiteSpace(NombreCategoria))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "El nombre no puede estar vacío", "OK");
+                // Validación para evitar posible null reference
+                var mainPage = Application.Current?.MainPage;
+                if (mainPage != null)
+                {
+                    await mainPage.DisplayAlert("Error", "El nombre no puede estar vacío", "OK");
+                }
                 return;
             }
 

@@ -5,7 +5,7 @@ using MauiAppGestorMovil.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;  // necesario para MessagingCenter
+using Microsoft.Maui.Controls;
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -15,7 +15,6 @@ namespace MauiAppGestorMovil.ViewModels
 
         public ObservableCollection<CategoriaNodo> CategoriasJerarquicas { get; } = new();
 
-        /*──────────────  COMANDOS  ──────────────*/
         public ICommand AgregarSubcategoriaCommand { get; }
         public ICommand EditarCategoriaCommand { get; }
         public ICommand EliminarCategoriaCommand { get; }
@@ -25,18 +24,11 @@ namespace MauiAppGestorMovil.ViewModels
             _repoCategorias = repo;
             ConstruirJerarquiaDeCategorias();
 
-            // Suscribirse al mensaje para recargar
-            MessagingCenter.Subscribe<EditarCategoriaViewModel>(this, "CategoriaEditada", sender =>
-            {
-                Recargar();
-            });
-
             AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoriaAsync);
             EditarCategoriaCommand = new Command<CategoriaNodo>(EditarCategoriaAsync);
             EliminarCategoriaCommand = new Command<CategoriaNodo>(EliminarCategoriaAsync);
         }
 
-        /*──────── Árbol de categorías ────────*/
         private void ConstruirJerarquiaDeCategorias()
         {
             var todas = _repoCategorias.ObtenerTodas();
@@ -58,31 +50,30 @@ namespace MauiAppGestorMovil.ViewModels
 
         public void Recargar() => ConstruirJerarquiaDeCategorias();
 
-        /*──────────➕ Subcategoría──────────*/
-        private async void AgregarSubcategoriaAsync(CategoriaNodo? padre)
+        private void AgregarSubcategoriaAsync(CategoriaNodo? padre)
         {
             if (padre is null) return;
 
             var main = Application.Current?.MainPage;
             if (main is null) return;
 
-            await main.Navigation.PushModalAsync(
-                new AgregarSubcategoria(_repoCategorias, padre));
+            var page = new AgregarSubcategoria(_repoCategorias, padre);
+            main.Navigation.PushModalAsync(page)
+                .ContinueWith(_ => MainThread.BeginInvokeOnMainThread(() => Recargar()));
         }
 
-        /*──────────✏️ Editar──────────*/
-        private async void EditarCategoriaAsync(CategoriaNodo? nodo)
+        private void EditarCategoriaAsync(CategoriaNodo? nodo)
         {
             if (nodo is null) return;
 
             var main = Application.Current?.MainPage;
             if (main is null) return;
 
-            await main.Navigation.PushModalAsync(
-                new EditarCategoria(_repoCategorias, nodo.Categoria));
+            var page = new EditarCategoria(_repoCategorias, nodo.Categoria);
+            main.Navigation.PushModalAsync(page)
+                .ContinueWith(_ => MainThread.BeginInvokeOnMainThread(() => Recargar()));
         }
 
-        /*──────────🗑️ Eliminar──────────*/
         private async void EliminarCategoriaAsync(CategoriaNodo? nodo)
         {
             if (nodo is null) return;
