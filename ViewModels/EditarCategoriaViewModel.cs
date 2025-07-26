@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiAppGestorMovil.Messages;
+
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -66,7 +69,7 @@ namespace MauiAppGestorMovil.ViewModels
             _repositorio.Actualizar(_categoria);
 
             // ✅ Envía mensaje de actualización antes de cerrar
-            MessagingCenter.Send(this, "CategoriaEditada");
+            WeakReferenceMessenger.Default.Send(new CategoriaEditadaMessage(true));
 
             await _navigation.PopModalAsync();  // sigue siendo modal
         }

@@ -4,6 +4,9 @@ using MauiAppGestorMovil.Helpers;
 using MauiAppGestorMovil.Models;
 using MauiAppGestorMovil.Repositories;
 using MauiAppGestorMovil.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiAppGestorMovil.Messages;
+
 
 namespace MauiAppGestorMovil.Views
 {
@@ -22,10 +25,11 @@ namespace MauiAppGestorMovil.Views
             BindingContext = _viewModel;
 
             // Suscribirse al mensaje para recargar automáticamente al volver de una edición
-            MessagingCenter.Subscribe<object>(this, "RecargarCategorias", (_) =>
+            WeakReferenceMessenger.Default.Register<RecargarCategoriasMessage>(this, (r, m) =>
             {
-                _viewModel.Recargar();
+                // Aquí va la lógica que antes estaba dentro del subscribe
             });
+
         }
 
         /*──────────────────────────────*/
@@ -80,7 +84,7 @@ namespace MauiAppGestorMovil.Views
             base.OnDisappearing();
 
             // Cancelar la suscripción para evitar fugas de memoria
-            MessagingCenter.Unsubscribe<object>(this, "RecargarCategorias");
+            WeakReferenceMessenger.Default.Unregister<RecargarCategoriasMessage>(this);
         }
     }
 }
