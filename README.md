@@ -1,46 +1,69 @@
-INFORME PRELIMINAR DE ARQUITECTURA Y FUNCIONAMIENTO DEL SISTEMA
-================================================================
+INFORME ACTUALIZADO DE ARQUITECTURA Y FUNCIONAMIENTO DEL SISTEMA
+=================================================================
 
 1. OBJETIVO DEL SISTEMA
 -----------------------
-El sistema desarrollado es una aplicación multiplataforma (Windows, Android, iOS) creada con .NET MAUI, orientada a la gestión de productos y categorías, permitiendo su visualización, modificación y administración desde una interfaz moderna y portable.
+El sistema desarrollado es una aplicación multiplataforma (Windows, Android, iOS) creada con .NET MAUI, orientada a la gestión de productos y categorías. Permite su visualización, edición y administración desde una interfaz moderna, responsiva y portable.
 
 2. ARQUITECTURA GENERAL
 -----------------------
-- El sistema sigue una arquitectura MVVM (Model-View-ViewModel), separando claramente los modelos de datos, la lógica de negocio y la interfaz de usuario.
-- Utiliza archivos JSON como mecanismo de persistencia local para productos y categorías.
-- Implementa repositorios para el acceso, escritura y lectura estructurada de los datos.
-- La interfaz gráfica está desarrollada en XAML, con vistas desacopladas de la lógica.
-- El sistema es portable y las rutas de acceso a datos se gestionan dinámicamente para cada plataforma, evitando dependencias de rutas absolutas.
+- Sigue el patrón MVVM (Model-View-ViewModel) para mantener una separación clara entre la lógica de negocio, la interfaz y los datos.
+- Utiliza archivos JSON locales (`productos.json`, `categorias.json`) como mecanismo de persistencia.
+- Se implementan repositorios para el manejo estructurado de lectura y escritura de datos.
+- Las interfaces están desarrolladas en XAML, desacopladas del código lógico (C#).
+- Las rutas de acceso a los datos se ajustan automáticamente a la plataforma, garantizando portabilidad.
 
 3. COMPONENTES PRINCIPALES
 --------------------------
-- **Modelos**: Definen las entidades principales (`Producto`, `Categoria`, etc.) con sus propiedades y relaciones.
-- **Repositorios**: Encapsulan la lógica de acceso a datos (lectura/escritura de archivos JSON).
-- **ViewModels**: Gestionan el estado y la lógica de presentación para cada vista, exponiendo comandos y colecciones observables para el binding.
-- **Vistas (Views)**: Definidas en XAML, representan la interfaz del usuario, enlazadas a los ViewModels.
-- **Inicialización de datos**: Al iniciar la app, los archivos de datos son copiados desde la carpeta `Resources` a la ruta local de datos del usuario si no existen, garantizando portabilidad y persistencia inicial.
+- **Modelos**: `Producto`, `Categoria`, `CategoriaNodo`, entre otros, definen la estructura de los datos.
+- **Repositorios**: Manejan el acceso a archivos JSON de manera estructurada y controlada.
+- **ViewModels**: Controlan la lógica de presentación, enlazan datos a la interfaz, y gestionan comandos.
+- **Vistas (Views)**: Desarrolladas en XAML. Incluyen:
+  - FrameDashboard.xaml (menú principal)
+  - GestionDeProductos.xaml
+  - GestionDeCategorias.xaml
+  - DetallesDelProducto.xaml
+  - EditarProducto.xaml
+  - AgregarCategoria.xaml
+  - AgregarSubcategoria.xaml
+- **Componentes reutilizables**:
+  - EncabezadoEmpresa.xaml: encabezado común con logo, lema y título dinámico.
+  - CategoriaItemView.xaml: vista recursiva de categorías con soporte de anidamiento jerárquico.
 
-4. FLUJO DE FUNCIONAMIENTO PRINCIPAL
-------------------------------------
-a) Al arrancar, la aplicación copia (si es necesario) los archivos `productos.json` y `categorias.json` desde `Resources` a la carpeta local del usuario.
-b) Los ViewModels cargan los datos desde estos archivos utilizando los repositorios.
-c) La interfaz, mediante binding a los ViewModels, muestra los productos y categorías en listas, permitiendo operaciones de alta, baja y edición.
-d) Los cambios realizados por el usuario se reflejan en los archivos locales, manteniendo la persistencia entre sesiones.
-e) El sistema es capaz de mostrar mensajes informativos y advertencias (por ejemplo, falta de archivos de datos) durante el desarrollo.
+4. FUNCIONALIDAD IMPLEMENTADA
+-----------------------------
+- Visualización jerárquica de categorías hasta 4 o más niveles.
+- Visualización de productos con propiedades generales y específicas por categoría.
+- Edición y eliminación de productos.
+- Agregado de categorías raíz y subcategorías.
+- Truncamiento automático de texto en nombres largos con alerta informativa al pulsar.
+- Navegación fluida entre vistas con encabezado coherente y estilo uniforme.
 
-5. PORTABILIDAD Y BUENAS PRÁCTICAS
------------------------------------
-- El uso de rutas relativas y la copia automática de los recursos iniciales garantizan el funcionamiento en todas las plataformas soportadas por MAUI.
-- La separación clara de responsabilidades (modelo, repositorio, vista, viewmodel) facilita el mantenimiento, pruebas y escalabilidad del sistema.
-- La arquitectura permite, en el futuro, reemplazar la persistencia por otra tecnología (base de datos local o remota) con cambios mínimos en la lógica de negocio.
+5. FLUJO DE FUNCIONAMIENTO
+--------------------------
+a) Al iniciar, los archivos `productos.json` y `categorias.json` son copiados desde `Resources` a la carpeta local del dispositivo si no existen.
+b) Los ViewModels cargan estos datos mediante los repositorios.
+c) La interfaz se enlaza a los ViewModels mediante binding.
+d) Las acciones del usuario (agregar, editar, eliminar) actualizan los datos y se guardan en JSON local.
+e) El diseño visual sigue lineamientos del diseño exportado desde Figma, con botones personalizados y jerarquía clara.
 
-6. PUNTOS PENDIENTES Y MEJORAS FUTURAS
----------------------------------------
-- Implementar la funcionalidad completa para agregar, editar y eliminar productos y categorías desde la interfaz.
-- Mejorar la validación de datos y manejo de errores.
-- Internacionalización y adaptación de la interfaz a distintos idiomas.
-- Sincronización de datos con servicios remotos, si se requiere.
+6. BUENAS PRÁCTICAS Y PORTABILIDAD
+----------------------------------
+- Uso de rutas relativas y copia inicial automática de archivos asegura funcionamiento en Windows, Android e iOS.
+- Arquitectura desacoplada y modular, ideal para mantenimiento y escalabilidad.
+- Posibilidad de sustituir los archivos JSON por bases de datos locales (SQLite) o sincronización en la nube (Firebase, Azure, etc.) sin afectar la lógica central.
+- Git y GitHub utilizados con ramas organizadas (`main`, `releaseX`) y versiones etiquetadas (`vX.Y.Z`).
 
-----------------------------------------------------------
-Este informe es preliminar y representa el estado actual a la fecha: 09/06/2025.
+7. PLANES FUTUROS Y MEJORAS PENDIENTES
+--------------------------------------
+- Finalizar validaciones al editar/agregar productos.
+- Permitir edición y eliminación de categorías y subcategorías.
+- Mejorar feedback visual al usuario (diálogos, mensajes, errores).
+- Implementar persistencia en la nube o sincronización remota.
+- Adaptar para múltiples idiomas e internacionalización.
+- Integrar autenticación y roles de usuario si se requiere.
+
+-----------------------------------------------------------
+Este informe representa el estado actualizado del sistema
+a la fecha: 25/07/2025
+
