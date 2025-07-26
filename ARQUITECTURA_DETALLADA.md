@@ -69,7 +69,24 @@
 
 ---
 
-## 6. Carpeta Resources
+
+---
+
+## 6. Carpeta Messages
+- **Responsabilidad:**  
+  - Contiene las clases de mensajes para la comunicación interna desacoplada entre ViewModels y Views.
+  - Implementa mensajería segura y eficiente mediante la librería `CommunityToolkit.Mvvm.Messaging`.
+- **Relación:**  
+  - Usada para sustituir el sistema obsoleto `MessagingCenter` de Xamarin.Forms.
+  - Facilita la comunicación de eventos, como actualización o recarga de datos, sin referencias fuertes que puedan provocar fugas de memoria.
+- **Observaciones:**
+  - Define mensajes específicos, por ejemplo: `CategoriaEditadaMessage` y `RecargarCategoriasMessage`.
+  - Permite que diferentes componentes se suscriban y respondan a eventos sin estar acoplados directamente.
+  - Mejora la mantenibilidad y la robustez del sistema MVVM.
+
+---
+
+## 7. Carpeta Resources
 - **Responsabilidad:**  
     - Imágenes, iconos y archivos de datos iniciales (`productos.json`, `categorias.json`).
 - **Relación:**  
@@ -81,7 +98,7 @@
 
 ---
 
-## 7. Carpeta Converters
+## 8. Carpeta Converters
 - **Responsabilidad:**  
     - Convertidores de valores para el binding en XAML (por ejemplo, de int a bool).
 - **Relación:**  
@@ -91,7 +108,7 @@
 
 ---
 
-## 8. Plataformas
+## 9. Plataformas
 - **Responsabilidad:**  
     - Entrypoints y configuración específica por plataforma (Android, iOS, Windows, Tizen).
 - **Relación:**  
@@ -101,7 +118,7 @@
 
 ---
 
-## 9. Generalidades y Arquitectura
+## 10. Generalidades y Arquitectura
 - Sigues MVVM, buena separación de capas y modularidad.
 - El uso de JSON es ideal para prototipos y apps sin backend.
 - El sistema es fácilmente extensible a almacenamiento local o remoto.
