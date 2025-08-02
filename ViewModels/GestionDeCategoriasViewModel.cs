@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiAppGestorMovil.Messages;
 
 namespace MauiAppGestorMovil.ViewModels
 {
@@ -27,6 +29,13 @@ namespace MauiAppGestorMovil.ViewModels
             AgregarSubcategoriaCommand = new Command<CategoriaNodo>(AgregarSubcategoriaAsync);
             EditarCategoriaCommand = new Command<CategoriaNodo>(EditarCategoriaAsync);
             EliminarCategoriaCommand = new Command<CategoriaNodo>(EliminarCategoriaAsync);
+
+            // Suscribirse al mensaje para recargar cuando se edite una categoría
+            WeakReferenceMessenger.Default.Register<GestionDeCategoriasViewModel, CategoriaEditadaMessage>(this, (r, m) =>
+            {
+                if (m.Value)
+                    r.Recargar();
+            });
         }
 
         private void ConstruirJerarquiaDeCategorias()
@@ -69,7 +78,7 @@ namespace MauiAppGestorMovil.ViewModels
             var main = Application.Current?.MainPage;
             if (main is null) return;
 
-            var page = new EditarCategoria(_repoCategorias, nodo.Categoria);
+            var page = new EditarCategoria(nodo.Categoria); // <- CORREGIDO
             main.Navigation.PushModalAsync(page)
                 .ContinueWith(_ => MainThread.BeginInvokeOnMainThread(() => Recargar()));
         }

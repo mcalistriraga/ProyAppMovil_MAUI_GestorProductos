@@ -3,65 +3,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
              x:Class="MauiAppGestorMovil.Views.EditarCategoria"
-             Title="Editar Categoría"
              BackgroundColor="#849EDE">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="25">
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFondoTocado" NumberOfTapsRequired="1" />
+            </VerticalStackLayout.GestureRecognizers>
 
-            <!-- Encabezado reutilizable con título dinámico -->
+            <!-- Encabezado reutilizable -->
             <views:EncabezadoEmpresa TituloPagina="Editar Categoría" />
 
-            <!-- Campo de nombre -->
-            <Label Text="Nombre de la categoría"
-                   FontSize="16"
-                   FontFamily="Inter"
-                   TextColor="White"/>
+            <!-- Frame que agrupa formulario y botones -->
+            <Frame BackgroundColor="#E1E8FB"
+                   BorderColor="#5679EA"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="True">
 
-            <Frame BackgroundColor="#F0F0F0"
-                   Padding="10"
-                   CornerRadius="5"
-                   HasShadow="False">
-                <Entry x:Name="NombreEntry"
-                       Text="{Binding NombreCategoria}"
-                       Placeholder="Ingrese un nuevo nombre"
-                       FontSize="16"
-                       FontFamily="Inter"
-                       BackgroundColor="Transparent"
-                       HeightRequest="50" />
-            </Frame>
+                <VerticalStackLayout Spacing="15">
 
-            <!-- Botones -->
-            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <!-- Campo Nombre -->
+                    <Label Text="Nombre de la Categoría"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="Black" />
 
-                <!-- Botón Guardar -->
-                <Frame CornerRadius="10" BackgroundColor="#5679EA" HasShadow="False">
-                    <Grid Padding="0">
-                        <Button Text="Guardar"
-                                Command="{Binding GuardarCommand}"
+                    <Entry Text="{Binding Categoria.Nombre}"
+                           Placeholder="Ingrese el nombre"
+                           BackgroundColor="White"
+                           TextColor="Black"
+                           FontSize="14"
+                           HeightRequest="40"
+                           Margin="0,0,0,10" />
+
+                    <!-- Label Propiedades -->
+                    <Label Text="Propiedades Específicas"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="Black"
+                           Margin="0,10,0,5" />
+
+                    <!-- Lista de propiedades -->
+                    <CollectionView ItemsSource="{Binding Propiedades}"
+                                    x:Name="PropiedadesListView">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="9*,1*" Padding="0,5">
+                                    <Entry Grid.Column="0"
+                                           Text="{Binding .}"
+                                           FontSize="14"
+                                           BackgroundColor="White"
+                                           TextColor="Black"
+                                           Margin="0,0,10,0" />
+                                    <ImageButton Grid.Column="1"
+                                                 Source="iconoeliminar_01.png"
+                                                 Command="{Binding BindingContext.EliminarPropiedadCommand, Source={x:Reference PropiedadesListView}}"
+                                                 CommandParameter="{Binding .}"
+                                                 BackgroundColor="Transparent"
+                                                 WidthRequest="32"
+                                                 HeightRequest="32" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Botones -->
+                    <HorizontalStackLayout HorizontalOptions="End"
+                                           Spacing="10"
+                                           Margin="0,20,0,0">
+
+                        <!-- Botón +Propiedad -->
+                        <Button Text="+Propiedad"
+                                BackgroundColor="#5779EA"
                                 TextColor="White"
                                 FontAttributes="Bold"
-                                FontFamily="Inter"
-                                BackgroundColor="Transparent"
-                                WidthRequest="120"
-                                HeightRequest="45"/>
-                    </Grid>
-                </Frame>
+                                WidthRequest="100"
+                                HeightRequest="40"
+                                CornerRadius="5"
+                                Command="{Binding AgregarPropiedadPromptCommand}" />
 
-                <!-- Botón Cancelar -->
-                <Frame CornerRadius="10" BackgroundColor="#CCCCCC" HasShadow="False">
-                    <Grid Padding="0">
+                        <!-- Botón Guardar -->
+                        <Button Text="Guardar"
+                                BackgroundColor="#385ED1"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                WidthRequest="100"
+                                HeightRequest="40"
+                                CornerRadius="5"
+                                Command="{Binding GuardarCommand}" />
+
+                        <!-- Botón Cancelar -->
                         <Button Text="Cancelar"
-                                Command="{Binding CancelarCommand}"
-                                TextColor="Black"
-                                FontFamily="Inter"
-                                BackgroundColor="Transparent"
-                                WidthRequest="120"
-                                HeightRequest="45"/>
-                    </Grid>
-                </Frame>
+                                BackgroundColor="#DA6533"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                WidthRequest="100"
+                                HeightRequest="40"
+                                CornerRadius="5"
+                                Command="{Binding CancelarCommand}" />
+                    </HorizontalStackLayout>
 
-            </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,17 +1,25 @@
+using MauiAppGestorMovil.Helpers;
 using MauiAppGestorMovil.Models;
-using MauiAppGestorMovil.Repositories;
+using MauiAppGestorMovil.Services;
 using MauiAppGestorMovil.ViewModels;
-using Microsoft.Maui.Controls;
+
 
 namespace MauiAppGestorMovil.Views
 {
     public partial class EditarCategoria : ContentPage
     {
-        public EditarCategoria(RepositorioCategorias repo, Categoria categoria)
+        public EditarCategoria(Categoria categoria)
         {
             InitializeComponent();
-
-            BindingContext = new EditarCategoriaViewModel(categoria, repo, Navigation);
+            ICategoriaService categoriaService = new CategoriaService();
+            BindingContext = new EditarCategoriaViewModel(categoria, categoriaService, Navigation);
         }
+
+        private void OnFondoTocado(object sender, EventArgs e)
+        {
+            CloseTecladoHelper.Ocultar();
+        }
+
+
     }
 }
