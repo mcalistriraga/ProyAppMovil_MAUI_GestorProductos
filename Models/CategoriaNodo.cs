@@ -55,5 +55,8 @@ namespace MauiAppGestorMovil.ViewModels
                 // else: puedes manejar el caso si MainPage es null (log o fallback)
             }
         });
+
+        // ✅ Nueva propiedad que indica si esta categoría es una hoja
+        public bool EsHoja => Subcategorias == null || Subcategorias.Count == 0;
     }
 }

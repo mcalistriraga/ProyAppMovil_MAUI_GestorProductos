@@ -85,5 +85,15 @@ namespace MauiAppGestorMovil.Repositories
         {
             return productos.Where(p => p.IdCategoria == categoriaId).ToList();
         }
+
+        /// <summary>
+        /// Verifica si existe un producto con el nombre dado (ignora mayúsculas/minúsculas).
+        /// </summary>
+        /// <param name="nombre">Nombre a verificar.</param>
+        /// <returns>true si existe, false si no.</returns>
+        public bool ExistePorNombre(string nombre)
+        {
+            return productos.Any(p => string.Equals(p.Nombre, nombre, System.StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

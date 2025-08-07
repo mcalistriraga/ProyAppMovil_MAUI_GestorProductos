@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
+             xmlns:viewscontrols="clr-namespace:MauiAppGestorMovil.Views.Controls"
+             x:Class="MauiAppGestorMovil.Views.SeleccionarCategoriaProducto"
+             Title="Seleccionar Categoría"
+             BackgroundColor="#849DE0">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Encabezado -->
+        <views:EncabezadoEmpresa TituloPagina="Seleccionar Categoría" />
+
+        <Label Text="Seleccione una categoría hoja para el nuevo producto:"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               Margin="0,0,0,10"
+               TextColor="Black" />
+
+        <!-- Lista de categorías -->
+        <CollectionView ItemsSource="{Binding CategoriasJerarquicas}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding CategoriaNodoSeleccionada, Mode=TwoWay}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <viewscontrols:CategoriaItemSeleccionView BindingContext="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Botón Continuar -->
+        <Button Text="Continuar"
+                BackgroundColor="#5679EA"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontFamily="Inter"
+                CornerRadius="10"
+                Padding="10"
+                Margin="0,20,0,0"
+                Command="{Binding ContinuarCommand}"
+                IsEnabled="{Binding CategoriaSeleccionadaHojaValida}" />
+
+    </VerticalStackLayout>
+</ContentPage>

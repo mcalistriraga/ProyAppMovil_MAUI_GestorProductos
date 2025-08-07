@@ -78,7 +78,7 @@
                                 BackgroundColor="#5779EA"
                                 TextColor="White"
                                 FontAttributes="Bold"
-                                WidthRequest="100"
+                                WidthRequest="120"
                                 HeightRequest="40"
                                 CornerRadius="5"
                                 Command="{Binding AgregarPropiedadPromptCommand}" />

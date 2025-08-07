@@ -16,4 +16,9 @@ namespace MauiAppGestorMovil.Messages
     {
         public RecargarCategoriasMessage(bool value) : base(value) { }
     }
+
+    public class RecargarProductosMessage : ValueChangedMessage<bool>
+    {
+        public RecargarProductosMessage(bool value) : base(value) { }
+    }
 }

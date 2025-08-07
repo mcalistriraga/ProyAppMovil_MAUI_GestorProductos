@@ -57,17 +57,24 @@ namespace MauiAppGestorMovil.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current?.MainPage?.DisplayAlert("Error al Guardar()", ex.Message, "OK");
+                var mainPage = Application.Current?.MainPage;
+                if (mainPage != null)
+                {
+                    await mainPage.DisplayAlert("Error al Guardar()", ex.Message, "OK");
+                }
+                // Opcionalmente, puedes loggear el error o manejarlo de otra forma si mainPage es null.
             }
         }
 
+
         private async Task MostrarPromptAgregarPropiedad()
         {
-            // Verificación de null para Application.Current y MainPage para evitar CS8602
-            if (Application.Current?.MainPage == null)
+            var mainPage = Application.Current?.MainPage;
+
+            if (mainPage == null)
                 return;
 
-            string? resultadoNullable = await Application.Current.MainPage.DisplayPromptAsync(
+            string? resultadoNullable = await mainPage.DisplayPromptAsync(
                 "Nueva Propiedad",
                 "Ingrese el nombre de la nueva propiedad:",
                 "Agregar",
@@ -85,8 +92,9 @@ namespace MauiAppGestorMovil.ViewModels
                 if (!Propiedades.Contains(propiedad))
                     Propiedades.Add(propiedad);
                 else
-                    await Application.Current.MainPage.DisplayAlert("Error", "La propiedad ya existe.", "OK");
+                    await mainPage.DisplayAlert("Error", "La propiedad ya existe.", "OK");
             }
         }
+
     }
 }
