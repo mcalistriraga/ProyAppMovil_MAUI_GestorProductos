@@ -1,45 +1,90 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:MauiAppGestorMovil.Views"
-             xmlns:viewscontrols="clr-namespace:MauiAppGestorMovil.Views.Controls"
+             xmlns:viewcontrols="clr-namespace:MauiAppGestorMovil.Views.Controls"
              x:Class="MauiAppGestorMovil.Views.SeleccionarCategoriaProducto"
-             Title="Seleccionar Categoría"
-             BackgroundColor="#849DE0">
+             BackgroundColor="#849EDE">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <!-- ========================================================
+         Grid principal con dos filas:
+         - Fila 0 (*) → contenido principal (scrollable)
+         - Fila 1 (Auto) → barra de botones
+         Padding general: 20
+    ======================================================== -->
+    <Grid RowDefinitions="*,Auto" Padding="20">
 
-        <!-- Encabezado -->
-        <views:EncabezadoEmpresa TituloPagina="Seleccionar Categoría" />
+        <!-- ========================================================
+             ScrollView que contiene lista de categorías y subcategorías
+        ======================================================== -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="20">
 
-        <Label Text="Seleccione una categoría hoja para el nuevo producto:"
-               FontAttributes="Bold"
-               FontSize="Medium"
-               Margin="0,0,0,10"
-               TextColor="Black" />
+                <!-- Encabezado estándar reutilizable con título dinámico -->
+                <views:EncabezadoEmpresa TituloPagina="Seleccionar Categoría del Nuevo Producto"/>
 
-        <!-- Lista de categorías -->
-        <CollectionView ItemsSource="{Binding CategoriasJerarquicas}"
-                        SelectionMode="Single"
-                        SelectedItem="{Binding CategoriaNodoSeleccionada, Mode=TwoWay}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <viewscontrols:CategoriaItemSeleccionView BindingContext="{Binding .}" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <!-- ========================================================
+                     CollectionView de categorías jerárquicas
+                     - ItemsSource enlazado al ObservableCollection del VM
+                     - SelectionMode Single → solo un nodo seleccionado
+                     - SelectedItem enlazado a CategoriaNodoSeleccionada (TwoWay)
+                ======================================================== -->
+                <CollectionView ItemsSource="{Binding CategoriasJerarquicas}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding CategoriaNodoSeleccionada, Mode=TwoWay}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- 🔹 Frame transparente para capturar Tap en toda la tarjeta -->
+                            <Frame HasShadow="False" Padding="0" BackgroundColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <!-- TapGesture enlazado al comando del ViewModel -->
+                                    <TapGestureRecognizer
+                                        Command="{Binding BindingContext.CategoriaSeleccionadaCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
 
-        <!-- Botón Continuar -->
-        <Button Text="Continuar"
-                BackgroundColor="#5679EA"
-                TextColor="White"
-                FontAttributes="Bold"
-                FontFamily="Inter"
-                CornerRadius="10"
-                Padding="10"
-                Margin="0,20,0,0"
-                Command="{Binding ContinuarCommand}"
-                IsEnabled="{Binding CategoriaSeleccionadaHojaValida}" />
+                                <!-- Contenido visual del nodo de categoría -->
+                                <viewcontrols:CategoriaItemSeleccionView 
+                                    PaddingLeftExtra="0"
+                                    CategoriaSeleccionadaCommand="{Binding BindingContext.CategoriaSeleccionadaCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
 
-    </VerticalStackLayout>
+        <!-- ========================================================
+             Barra de botones en la parte inferior:
+             - HorizontalStackLayout alineado a la derecha
+             - Spacing y margen para separación visual
+        ======================================================== -->
+        <HorizontalStackLayout Grid.Row="1"
+                               HorizontalOptions="End"
+                               Spacing="10"
+                               Margin="0,10,0,0">
+
+            <!-- Botón Continuar -->
+            <Button Text="Continuar"
+                    BackgroundColor="#5679EA"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    WidthRequest="100"
+                    HeightRequest="40"
+                    CornerRadius="5"
+                    Command="{Binding ContinuarCommand}"
+                    IsEnabled="{Binding CategoriaSeleccionadaHojaValida}" />
+            <!-- IsEnabled solo activo si la hoja seleccionada es válida -->
+
+            <!-- Botón Cancelar -->
+            <Button Text="Cancelar"
+                    BackgroundColor="#DA6533"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    WidthRequest="100"
+                    HeightRequest="40"
+                    CornerRadius="5"
+                    Command="{Binding CancelarCommand}" />
+        </HorizontalStackLayout>
+
+    </Grid>
 </ContentPage>

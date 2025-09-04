@@ -62,24 +62,12 @@ namespace MauiAppGestorMovil.ViewModels
 
         private async Task AgregarProducto()
         {
-            var nuevoProducto = new Producto
-            {
-                Id = proximoId++,
-                Nombre = $"Producto #{proximoId}",
-                IdCategoria = 1,
-                Precio = 9.99m,
-                Stock = 100,
-                Descripcion = "Producto de prueba",
-                CategoriaNombre = "Electrónica"
-            };
+            var mainPage = Application.Current?.MainPage;
+            if (mainPage == null)
+                return;
 
-            Productos.Add(nuevoProducto);
-            repositorioProductos.Agregar(nuevoProducto);
-
-            if (MostrarMensaje != null)
-            {
-                await MostrarMensaje("Producto Agregado", $"Producto '{nuevoProducto.Nombre}' agregado.");
-            }
+            // Aquí navegas a la página de selección de categoría
+            await mainPage.Navigation.PushAsync(new Views.SeleccionarCategoriaProducto());
         }
 
         private async void VerProducto(Producto producto)
