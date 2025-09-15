@@ -40,7 +40,17 @@ namespace MauiAppGestorMovil.ViewModels
             RutaCategoria = CategoriaHelper.ObtenerRutaCategoriaCompleta(categoriaSeleccionada.Id, repoCategorias);
 
             GuardarCommand = new Command(async () => await OnGuardar());
-            CancelarCommand = new Command(async () => await navigation.PopAsync());
+            CancelarCommand = new Command(async () =>
+            {
+                for (int i = navigation.NavigationStack.Count - 2; i >= 0; i--)
+                {
+                    if (navigation.NavigationStack[i] is MauiAppGestorMovil.Views.SeleccionarCategoriaProducto)
+                    {
+                        navigation.RemovePage(navigation.NavigationStack[i]);
+                    }
+                }
+                await navigation.PopAsync(); // cierra AgregarProducto
+            });
 
             CargarPropiedadesEspecificas();
         }
@@ -140,6 +150,16 @@ namespace MauiAppGestorMovil.ViewModels
             // Notificar para recargar lista de productos
             WeakReferenceMessenger.Default.Send(new RecargarProductosMessage(true));
 
+            // Eliminar SeleccionarCategoriaProducto.xaml de la pila de navegación
+            for (int i = navigation.NavigationStack.Count - 2; i >= 0; i--)
+            {
+                if (navigation.NavigationStack[i] is MauiAppGestorMovil.Views.SeleccionarCategoriaProducto)
+                {
+                    navigation.RemovePage(navigation.NavigationStack[i]);
+                }
+            }
+
+            // Cerrar AgregarProducto y volver a GestionDeProductos.xaml
             await navigation.PopAsync();
         }
     }

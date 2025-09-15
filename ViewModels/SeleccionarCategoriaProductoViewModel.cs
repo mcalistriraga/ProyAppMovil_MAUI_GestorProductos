@@ -118,12 +118,22 @@ namespace MauiAppGestorMovil.ViewModels
             });
 
             // Comando para cancelar la selección
-            CancelarCommand = new Command(() =>
+            // Comando para cancelar la selección
+            // Comando para cancelar la selección
+            CancelarCommand = new Command(async () =>
             {
                 CategoriaConfirmada = null;
                 CategoriaSeleccionadaHojaValida = false;
                 CategoriaNodoSeleccionada = null;
+
+                // 🔹 Volver un paso atrás → Gestión de Productos
+                if (Application.Current?.MainPage?.Navigation != null)
+                {
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
             });
+
+
 
             // Comando usado por el control CategoriaItemSeleccionView para seleccionar nodos
             CategoriaSeleccionadaCommand = new Command<CategoriaNodo>(nodo =>
